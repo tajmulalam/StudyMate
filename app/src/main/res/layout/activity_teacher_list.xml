@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.sumon.studymate.TeacherListActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <ListView
+            android:paddingTop="@dimen/five"
+            android:paddingLeft="@dimen/ten"
+            android:paddingRight="@dimen/ten"
+            android:id="@+id/teacherListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:horizontalSpacing="@dimen/ten"
+            android:numColumns="2"
+            android:verticalSpacing="@dimen/ten" />
+
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAddTeacher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:background="@drawable/fab_color"
+        app:srcCompat="@mipmap/ic_white_plus"
+        app:fabSize="normal"
+        app:backgroundTint="@color/colorPrimary"
+        app:rippleColor="@android:color/white"
+        app:borderWidth="0dp"
+        app:elevation="2dp"
+        app:pressedTranslationZ="12dp"/>
+</android.support.design.widget.CoordinatorLayout>

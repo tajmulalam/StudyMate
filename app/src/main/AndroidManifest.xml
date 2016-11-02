@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.sumon.studymate">
+    <uses-sdk tools:overrideLibrary="com.github.johnpersano.supertoasts.library"/>
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".LauncherActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:parentActivityName=".SemesterListActivity" />
+        <activity
+            android:name=".AddCoursesActivity"
+            android:parentActivityName=".CourseListActivity" />
+        <activity
+            android:name=".SemesterListActivity"
+            android:parentActivityName=".LauncherActivity" />
+        <activity
+            android:name=".TeacherListActivity"
+            android:parentActivityName=".LauncherActivity" />
+        <activity
+            android:name=".AddTeacherActivity"
+            android:parentActivityName=".TeacherListActivity" />
+        <activity
+            android:name=".CourseListActivity"
+            android:parentActivityName=".LauncherActivity" />
+        <activity
+            android:name=".AddAssignmentActivity"
+            android:parentActivityName=".AssignmentListActivity" />
+        <activity android:name=".AssignmentListActivity"
+            android:parentActivityName=".LauncherActivity"></activity>
+        <receiver android:name=".AlarmReceiver" android:process=":remote" />
+
+    </application>
+
+</manifest>

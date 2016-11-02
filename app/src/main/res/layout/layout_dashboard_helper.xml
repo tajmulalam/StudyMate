@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:cardView="http://schemas.android.com/tools"
+                android:id="@+id/semesterDashboardCardView"
+                android:layout_width="@dimen/one_hundred"
+                android:layout_height="@dimen/one_hundred_fifty"
+                android:layout_margin="@dimen/ten"
+                android:layout_weight="5"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                cardView:cardCornerRadius="@dimen/fifty">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="@dimen/five"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:id="@+id/semesterCountTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_weight="1"
+                        android:background="@drawable/ic_text_bg_badge"
+                        android:gravity="right"
+                        android:text="22" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:src="@mipmap/ic_semester" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="2"
+                        android:background="@drawable/ic_text_bg"
+                        android:gravity="center"
+                        android:text="SEMESTERS"
+                        android:textColor="@color/mdtp_white"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:cardView="http://schemas.android.com/tools"
+                android:id="@+id/courseDashboardCardView"
+                android:layout_width="@dimen/one_hundred"
+                android:layout_height="@dimen/one_hundred_fifty"
+                android:layout_margin="@dimen/ten"
+                android:layout_weight="5"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                cardView:cardCornerRadius="@dimen/fifty">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="@dimen/five"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:id="@+id/courseCountTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_weight="1"
+                        android:background="@drawable/ic_text_bg_badge"
+                        android:gravity="right"
+                        android:text="22" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:src="@mipmap/ic_courses" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="2"
+                        android:background="@drawable/ic_text_bg"
+                        android:gravity="center"
+                        android:text="COURSES"
+                        android:textColor="@color/mdtp_white"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:cardView="http://schemas.android.com/tools"
+                android:id="@+id/classTestDashboardCardView"
+
+                android:layout_width="@dimen/one_hundred"
+                android:layout_height="@dimen/one_hundred_fifty"
+                android:layout_margin="@dimen/ten"
+                android:layout_weight="5"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                cardView:cardCornerRadius="@dimen/fifty">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="@dimen/five"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:id="@+id/classTestCountTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_weight="1"
+                        android:background="@drawable/ic_text_bg_badge"
+                        android:gravity="right"
+                        android:text="22" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:src="@mipmap/ic_tests" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="2"
+                        android:background="@drawable/ic_text_bg"
+                        android:gravity="center"
+                        android:text="CLASS TESTS"
+                        android:textColor="@color/mdtp_white"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:cardView="http://schemas.android.com/tools"
+                android:id="@+id/assignmentDashboardCardView"
+
+                android:layout_width="@dimen/one_hundred"
+                android:layout_height="@dimen/one_hundred_fifty"
+                android:layout_margin="@dimen/ten"
+                android:layout_weight="5"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                cardView:cardCornerRadius="@dimen/fifty">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="@dimen/five"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:id="@+id/assignmentCountTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_weight="1"
+                        android:background="@drawable/ic_text_bg_badge"
+                        android:gravity="right"
+                        android:text="22" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:src="@mipmap/ic_assignment" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="2"
+                        android:background="@drawable/ic_text_bg"
+                        android:gravity="center"
+                        android:text="ASSIGNMENTS"
+                        android:textColor="@color/mdtp_white"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:cardView="http://schemas.android.com/tools"
+                android:id="@+id/teacherDashboardCardView"
+                android:layout_width="@dimen/one_hundred"
+                android:layout_height="@dimen/one_hundred_fifty"
+                android:layout_margin="@dimen/ten"
+                android:layout_weight="5"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                cardView:cardCornerRadius="@dimen/fifty">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="@dimen/five"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:id="@+id/teacherCountTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_weight="1"
+                        android:background="@drawable/ic_text_bg_badge"
+                        android:gravity="right"
+                        android:text="22" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:src="@mipmap/ic_teachers" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="2"
+                        android:background="@drawable/ic_text_bg"
+                        android:gravity="center"
+                        android:text="TEACHERS"
+                        android:textColor="@color/mdtp_white"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:cardView="http://schemas.android.com/tools"
+                android:id="@+id/routineDashboardCardView"
+                android:layout_width="@dimen/one_hundred"
+                android:layout_height="@dimen/one_hundred_fifty"
+                android:layout_margin="@dimen/ten"
+                android:layout_weight="5"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                cardView:cardCornerRadius="@dimen/fifty">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="@dimen/five"
+                    android:weightSum="10">
+
+
+                    <TextView
+                        android:id="@+id/routineCountTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_weight="1"
+                        android:background="@drawable/ic_text_bg_badge"
+                        android:gravity="right"
+                        android:text="Expired" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:src="@mipmap/ic_rutine" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="2"
+                        android:background="@drawable/ic_text_bg"
+                        android:gravity="center"
+                        android:text="ROUTINE"
+                        android:textColor="@color/mdtp_white"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

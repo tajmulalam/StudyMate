@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/twinty"
+    android:paddingRight="@dimen/twinty"
+    android:paddingTop="@dimen/ten"
+    android:paddingBottom="@dimen/five">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_bg"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Choose Semester "
+                android:textSize="@dimen/eighteensp" />
+
+            <Spinner
+                android:id="@+id/semesterListSpinnerAssignment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/selectTeacherSpinnerLayoutLn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_bg"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Select Course "
+                android:textSize="@dimen/eighteensp" />
+
+            <Spinner
+                android:id="@+id/courseListSpinnerAssignment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/submitDateET"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_weight=".80"
+                android:background="@drawable/ic_bg"
+                android:enabled="false"
+                android:gravity="left"
+                android:hint="@string/submitDate"
+                android:inputType="datetime"
+                android:padding="@dimen/ten"
+                android:textColor="@android:color/black" />
+
+            <ImageButton
+                android:id="@+id/datePicAssignmentIBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight=".20"
+                android:background="@drawable/ic_bg"
+                android:padding="5dp"
+                android:src="@mipmap/ic_datepicker" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/assignmentTopicET"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/one_hundred"
+            android:layout_marginTop="@dimen/ten"
+            android:background="@drawable/ic_text_bg_badge"
+            android:gravity="left"
+            android:hint="@string/assignmettopic"
+            android:padding="@dimen/ten" />
+
+        <CheckBox
+            android:id="@+id/remindCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ten"
+            android:padding="@dimen/five"
+            android:text="Also Remind Me" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/ic_bg"
+                android:onClick="resetData"
+                android:text="Reset" />
+
+            <Button
+                android:id="@+id/btnAddAssignment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/ic_bg"
+                android:onClick="next"
+                android:text="Add" />
+
+            <Button
+                android:id="@+id/btnUpdateAssignment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/ic_bg"
+                android:onClick="next"
+                android:text="Update"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.sumon.studymate.CourseListActivity">
+
+    <LinearLayout
+        android:paddingTop="@dimen/five"
+        android:paddingLeft="@dimen/ten"
+        android:paddingRight="@dimen/ten"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <ListView
+
+            android:id="@+id/coursesListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+    </LinearLayout>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAddCourse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:background="@drawable/fab_color"
+        app:backgroundTint="@color/colorPrimary"
+        app:borderWidth="0dp"
+        app:elevation="2dp"
+        app:fabSize="normal"
+        app:pressedTranslationZ="12dp"
+        app:rippleColor="@android:color/white"
+        app:srcCompat="@mipmap/ic_white_plus" />
+</android.support.design.widget.CoordinatorLayout>

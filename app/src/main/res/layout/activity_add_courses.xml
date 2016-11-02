@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/ten"
+    tools:context="com.sumon.studymate.AddCoursesActivity">
+
+    <LinearLayout
+        android:id="@+id/activity_add_semester"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/courseTitleET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_bg"
+            android:hint="@string/courseTitle"
+            android:inputType="textAutoComplete" />
+
+        <EditText
+            android:id="@+id/courseCodeET"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_bg"
+            android:hint="@string/courseCode"
+            android:inputType="textAutoComplete" />
+
+        <EditText
+            android:id="@+id/courseCreditET"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_bg"
+            android:hint="@string/courseCredit"
+            android:inputType="number" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_bg"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Choose Semester "
+                android:textSize="@dimen/eighteensp" />
+
+            <Spinner
+                android:id="@+id/semesterListSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/selectTeacherSpinnerLayoutLn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_bg"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Select Teacher "
+                android:textSize="@dimen/eighteensp" />
+
+            <Spinner
+                android:id="@+id/teacherListSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/newTeacherLnLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_bg"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="No Teacher Available.Create one first" />
+
+            <ImageButton
+                android:id="@+id/addNewTeacherIBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:layout_weight="8"
+                android:background="@drawable/ic_bg"
+                android:src="@mipmap/ic_plus_black" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnResetTeacherFillData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/five"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ic_bg"
+                android:text="Reset" />
+
+            <Button
+                android:id="@+id/addNewCourseBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ic_bg"
+                android:onClick="back"
+                android:text="Add Course" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
