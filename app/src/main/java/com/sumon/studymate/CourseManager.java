@@ -113,4 +113,14 @@ public class CourseManager {
         return allCourses;
     }
 
+    public boolean deleteCourseByID(int courseID) {
+        this.open();
+        int deleted =  database.delete(DBHelper.TABLE_COURSES, DBHelper.KEY_COURSE_ID + " = " + courseID, null);
+        this.close();
+        if (deleted > 0) {
+            return true;
+
+        } else
+            return false;
+    }
 }
