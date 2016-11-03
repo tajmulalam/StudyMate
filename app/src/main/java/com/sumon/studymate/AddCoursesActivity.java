@@ -35,14 +35,108 @@ public class AddCoursesActivity extends AppCompatActivity {
     private int teacherID = -1;
     private CourseModel aCourse;
     private CourseManager courseManager;
+    private int courseId = -1;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_courses);
-        init();
+        courseId = getIntent().getIntExtra("courseID", 0);
+            init();
+
     }
+
+//    private void initForUpdate() {
+//        selectTeacherSpinnerLayoutLn = (LinearLayout) findViewById(R.id.selectTeacherSpinnerLayoutLn);
+//        courseTitleET = (EditText) findViewById(R.id.courseTitleET);
+//        courseCodeET = (EditText) findViewById(R.id.courseCodeET);
+//        courseCreditET = (EditText) findViewById(R.id.courseCreditET);
+//        addNewTeacherIBtn = (ImageButton) findViewById(R.id.addNewTeacherIBtn);
+//        btnResetTeacherFillData = (Button) findViewById(R.id.btnResetTeacherFillData);
+//        addNewCourseBtn = (Button) findViewById(R.id.addNewCourseBtn);
+//
+//
+//        newTeacherLnLayout = (LinearLayout) findViewById(R.id.newTeacherLnLayout);
+//        semesterManager = new SemesterManager(this);
+//        semesterModelArrayList = semesterManager.getAllSemester();
+//        teacherManager = new TeacherManager(this);
+//        courseManager = new CourseManager(this);
+//        teacherListActivityArrayList = teacherManager.getAllTeacher();
+//        if (teacherListActivityArrayList.size() > 0) {
+//            newTeacherLnLayout.setVisibility(View.GONE);
+//            selectTeacherSpinnerLayoutLn.setVisibility(View.VISIBLE);
+//        } else {
+//            newTeacherLnLayout.setVisibility(View.VISIBLE);
+//            selectTeacherSpinnerLayoutLn.setVisibility(View.GONE);
+//        }
+//
+//        semesterListSpinner = (Spinner) findViewById(R.id.semesterListSpinner);
+//        teacherListSpinner = (Spinner) findViewById(R.id.teacherListSpinner);
+//
+//        aCourse = courseManager.getCourseByID(courseId);
+//        courseTitleET.setText(aCourse.getCourseTitle());
+//        courseCodeET.setText(aCourse.getCourseCode());
+//        courseCreditET.setText(aCourse.getCourseCredit());
+//
+//
+//        adapterForTeacherSpinner = new AdapterForTeacherSpinner(this, teacherListActivityArrayList);
+//        teacherListSpinner.setAdapter(adapterForTeacherSpinner);
+//        teacherListSpinner.setSelection(aCourse.getCourseTeacherID() - 1);
+//
+//        adapterForSemesterList = new AdapterForSemesterSpinner(this, semesterModelArrayList);
+//        semesterListSpinner.setAdapter(adapterForSemesterList);
+//        semesterListSpinner.setSelection(aCourse.getCourseSemesterID() - 1);
+//
+//
+//        semesterListSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                semesterID = semesterModelArrayList.get(position).getSemesterID();
+//                teacherListActivityArrayList = teacherManager.getAllTeacherBySemesterID(semesterID);
+//                adapterForTeacherSpinner = new AdapterForTeacherSpinner(AddCoursesActivity.this, teacherListActivityArrayList);
+//                teacherListSpinner.setAdapter(adapterForTeacherSpinner);
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//        teacherListSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                teacherID = teacherListActivityArrayList.get(position).getTeacherID();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//        addNewTeacherIBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                goToAddNewTeacher();
+//            }
+//        });
+//
+//        addNewCourseBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                insertCourseInformation();
+//            }
+//        });
+//
+//        btnResetTeacherFillData.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                resetFieldDate();
+//            }
+//        });
+//
+//    }
 
     private void init() {
         selectTeacherSpinnerLayoutLn = (LinearLayout) findViewById(R.id.selectTeacherSpinnerLayoutLn);
@@ -68,14 +162,33 @@ public class AddCoursesActivity extends AppCompatActivity {
             selectTeacherSpinnerLayoutLn.setVisibility(View.GONE);
         }
 
-        semesterListSpinner = (Spinner) findViewById(R.id.semesterListSpinner);
-        semesterListSpinner.setPrompt("Select Semester");
-        teacherListSpinner = (Spinner) findViewById(R.id.teacherListSpinner);
-        adapterForTeacherSpinner = new AdapterForTeacherSpinner(this, teacherListActivityArrayList);
-        teacherListSpinner.setAdapter(adapterForTeacherSpinner);
+            semesterListSpinner = (Spinner) findViewById(R.id.semesterListSpinner);
+            teacherListSpinner = (Spinner) findViewById(R.id.teacherListSpinner);
+        if (courseId == -1) {
 
-        adapterForSemesterList = new AdapterForSemesterSpinner(this, semesterModelArrayList);
-        semesterListSpinner.setAdapter(adapterForSemesterList);
+            adapterForTeacherSpinner = new AdapterForTeacherSpinner(this, teacherListActivityArrayList);
+            teacherListSpinner.setAdapter(adapterForTeacherSpinner);
+
+            adapterForSemesterList = new AdapterForSemesterSpinner(this, semesterModelArrayList);
+            semesterListSpinner.setAdapter(adapterForSemesterList);
+        }else{
+
+            aCourse = courseManager.getCourseByID(courseId);
+            courseTitleET.setText(aCourse.getCourseTitle());
+            courseCodeET.setText(aCourse.getCourseCode());
+            courseCreditET.setText(aCourse.getCourseCredit());
+
+
+            adapterForTeacherSpinner = new AdapterForTeacherSpinner(this, teacherListActivityArrayList);
+            teacherListSpinner.setAdapter(adapterForTeacherSpinner);
+            teacherListSpinner.setSelection(aCourse.getCourseTeacherID() - 1);
+
+            adapterForSemesterList = new AdapterForSemesterSpinner(this, semesterModelArrayList);
+            semesterListSpinner.setAdapter(adapterForSemesterList);
+            semesterListSpinner.setSelection(aCourse.getCourseSemesterID() - 1);
+        }
+
+
         semesterListSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

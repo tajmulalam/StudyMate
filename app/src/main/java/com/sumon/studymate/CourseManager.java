@@ -89,7 +89,7 @@ public class CourseManager {
     public ArrayList<CourseModel> getAllCoursesBySemesterID(int semesterID) {
         this.open();
         allCourses = new ArrayList<>();
-        cursor = database.query(DBHelper.TABLE_COURSES, new String[]{DBHelper.KEY_COURSE_ID, DBHelper.KEY_COURSE_TITTLE, DBHelper.KEY_COURSE_CODE, DBHelper.KEY_COURSE_CREDIT,DBHelper.KEY_SEMESTER_ID,DBHelper.KEY_TEACHER_ID}, DBHelper.KEY_SEMESTER_ID + " = " + semesterID, null, null, null, null);
+        cursor = database.query(DBHelper.TABLE_COURSES, new String[]{DBHelper.KEY_COURSE_ID, DBHelper.KEY_COURSE_TITTLE, DBHelper.KEY_COURSE_CODE, DBHelper.KEY_COURSE_CREDIT, DBHelper.KEY_SEMESTER_ID, DBHelper.KEY_TEACHER_ID}, DBHelper.KEY_SEMESTER_ID + " = " + semesterID, null, null, null, null);
         cursor.moveToFirst();
         if (cursor != null && cursor.getCount() > 0) {
             for (int i = 0; i < cursor.getCount(); i++) {
@@ -115,12 +115,34 @@ public class CourseManager {
 
     public boolean deleteCourseByID(int courseID) {
         this.open();
-        int deleted =  database.delete(DBHelper.TABLE_COURSES, DBHelper.KEY_COURSE_ID + " = " + courseID, null);
+        int deleted = database.delete(DBHelper.TABLE_COURSES, DBHelper.KEY_COURSE_ID + " = " + courseID, null);
         this.close();
         if (deleted > 0) {
             return true;
 
         } else
             return false;
+    }
+
+    public CourseModel getCourseByID(int courseId) {
+        this.open();
+        cursor = database.query(DBHelper.TABLE_COURSES, new String[]{DBHelper.KEY_COURSE_ID, DBHelper.KEY_COURSE_TITTLE, DBHelper.KEY_COURSE_CODE, DBHelper.KEY_COURSE_CREDIT, DBHelper.KEY_SEMESTER_ID, DBHelper.KEY_TEACHER_ID}, DBHelper.KEY_SEMESTER_ID + " = " + courseId, null, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int courseID = cursor.getInt(cursor.getColumnIndex(DBHelper.KEY_COURSE_ID));
+
+            int courseSemesterID = cursor.getInt(cursor.getColumnIndex(DBHelper.KEY_SEMESTER_ID));
+
+            int courseTeacherID = cursor.getInt(cursor.getColumnIndex(DBHelper.KEY_TEACHER_ID));
+            String courseTitle = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_COURSE_TITTLE));
+
+            String courseCode = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_COURSE_CODE));
+
+            String courseCredit = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_COURSE_CREDIT));
+
+            aCourse = new CourseModel(courseSemesterID, courseTeacherID, courseID, courseTitle, courseCode, courseCredit);
+        }
+        this.close();
+        return aCourse;
     }
 }
