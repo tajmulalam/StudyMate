@@ -4,7 +4,6 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,11 +22,11 @@ import java.util.Locale;
  * Created by Md Tajmul Alam Sumon on 10/28/2016.
  */
 
-public class AdapterForAssignmentList extends ArrayAdapter<AssignmentModel> implements MyAlert.WhichBtnClicked {
+public class AdapterForClassTestList extends ArrayAdapter<ClassTestModel> implements MyAlert.WhichBtnClicked {
     private Context context;
-    private ArrayList<AssignmentModel> assignmentArrayList;
+    private ArrayList<ClassTestModel> classTestModelArrayList;
     private LayoutInflater inflter;
-    private int assignmentID;
+    private int classTestID;
     private FragmentManager fragmentManager;
     private MyAlert.WhichBtnClicked whichBtnClicked;
     private SimpleDateFormat sdf;
@@ -37,10 +36,10 @@ public class AdapterForAssignmentList extends ArrayAdapter<AssignmentModel> impl
         this.fragmentManager = fragmentManager;
     }
 
-    public AdapterForAssignmentList(Context context, ArrayList<AssignmentModel> assignmentArrayList) {
-        super(context, R.layout.custom_row_for_assignment_list);
+    public AdapterForClassTestList(Context context, ArrayList<ClassTestModel> classTestModelArrayList) {
+        super(context, R.layout.custom_row_for_class_test_list);
         this.context = context;
-        this.assignmentArrayList = assignmentArrayList;
+        this.classTestModelArrayList = classTestModelArrayList;
         inflter = (LayoutInflater.from(context));
         this.whichBtnClicked = this;
         sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -50,7 +49,7 @@ public class AdapterForAssignmentList extends ArrayAdapter<AssignmentModel> impl
 
     @Override
     public int getCount() {
-        return assignmentArrayList.size();
+        return classTestModelArrayList.size();
     }
 
 
@@ -62,8 +61,8 @@ public class AdapterForAssignmentList extends ArrayAdapter<AssignmentModel> impl
 
     static class ViewHolder {
 
-        TextView assignmentNameTV, submitDateTV, statusTV;
-        ImageButton assignmentEditBtn, assignmentDeleteBtn;
+        TextView classTestNameTV, classTestDateTV, classTestStatusTV;
+        ImageButton classTestEditBtn, classTestDeleteBtn;
 
 
     }
@@ -72,54 +71,54 @@ public class AdapterForAssignmentList extends ArrayAdapter<AssignmentModel> impl
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = inflter.inflate(R.layout.custom_row_for_assignment_list, null);
+            convertView = inflter.inflate(R.layout.custom_row_for_class_test_list, null);
             holder = new ViewHolder();
-            holder.assignmentNameTV = (TextView) convertView.findViewById(R.id.assignmentNameTV);
-            holder.submitDateTV = (TextView) convertView.findViewById(R.id.submitDateTV);
-            holder.statusTV = (TextView) convertView.findViewById(R.id.statusTV);
-            holder.assignmentEditBtn = (ImageButton) convertView.findViewById(R.id.assignmentEditBtn);
-            holder.assignmentDeleteBtn = (ImageButton) convertView.findViewById(R.id.assignmentDeleteBtn);
+            holder.classTestNameTV = (TextView) convertView.findViewById(R.id.classTestNameTV);
+            holder.classTestDateTV = (TextView) convertView.findViewById(R.id.classTestDateTV);
+            holder.classTestStatusTV = (TextView) convertView.findViewById(R.id.classTestStatusTV);
+            holder.classTestEditBtn = (ImageButton) convertView.findViewById(R.id.classTestEditBtn);
+            holder.classTestDeleteBtn = (ImageButton) convertView.findViewById(R.id.classTestDeleteBtn);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.assignmentNameTV.setText(assignmentArrayList.get(position).getTopic());
+        holder.classTestNameTV.setText(classTestModelArrayList.get(position).getClassTestTopic());
         try {
-            deadlineDate = sdf.parse(assignmentArrayList.get(position).getSubmitDate());
+            deadlineDate = sdf.parse(classTestModelArrayList.get(position).getTestDate());
             todayDate = sdf.parse(getDateTime());
-            Log.d("dateD","deadline "+String.valueOf(assignmentArrayList.get(position).getSubmitDate()));
+            Log.d("dateD","deadline "+String.valueOf(classTestModelArrayList.get(position).getTestDate()));
             Log.d("nowdate","now date "+String.valueOf(getDateTime()));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        holder.submitDateTV.setText("Deadline: " + assignmentArrayList.get(position).getSubmitDate());
-        if (assignmentArrayList.get(position).getAssignmentStatus() == 1||assignmentArrayList.get(position).getAssignmentStatus() == 0 &&  deadlineDate.after(todayDate)) {
-            holder.statusTV.setText("Status: " + "Pending");
-            holder.statusTV.setTextColor(Color.MAGENTA);
+        holder.classTestDateTV.setText("Deadline: " + classTestModelArrayList.get(position).getTestDate());
+        if (classTestModelArrayList.get(position).getClassTestStatus() == 1||classTestModelArrayList.get(position).getClassTestStatus() == 0 &&  deadlineDate.after(todayDate)) {
+            holder.classTestStatusTV.setText("Status: " + "Pending");
+            holder.classTestStatusTV.setTextColor(Color.MAGENTA);
         } if (deadlineDate.before(todayDate)){
-            holder.statusTV.setText("Status: " + "Submitted");
+            holder.classTestStatusTV.setText("Status: " + "Submitted");
 
         }
 
-        holder.assignmentEditBtn.setOnClickListener(new View.OnClickListener() {
+        holder.classTestEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assignmentID = assignmentArrayList.get(position).getAssignmentID();
-                Intent addAssignmentIntent = new Intent(context, AddAssignmentActivity.class);
-                addAssignmentIntent.putExtra("assignmentID", assignmentID);
+                classTestID = classTestModelArrayList.get(position).getClassTestID();
+                Intent addAssignmentIntent = new Intent(context, AddClassTestActivity.class);
+                addAssignmentIntent.putExtra("classTestID", classTestID);
 //                mySharedPrefManager.insertIntoPreferenceInt("semesterID", semesterListID);
                 context.startActivity(addAssignmentIntent);
             }
         });
-        holder.assignmentDeleteBtn.setOnClickListener(new View.OnClickListener() {
+        holder.classTestDeleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assignmentID = assignmentArrayList.get(position).getAssignmentID();
+                classTestID = classTestModelArrayList.get(position).getClassTestID();
                 MyAlert myAlert = new MyAlert();
                 myAlert.setWhichBtnClicked(whichBtnClicked);
                 myAlert.setTitle("Confirm Dialog");
                 myAlert.setMsg("This will deleted with its related date. Are You Confirmed To delete this");
-                myAlert.show(fragmentManager, "AssignmentListDialog");
+                myAlert.show(fragmentManager, "classTesttListDialog");
             }
         });
         return convertView;
@@ -131,11 +130,11 @@ public class AdapterForAssignmentList extends ArrayAdapter<AssignmentModel> impl
     public void okBtnClicked(boolean isOk) {
         if (isOk) {
 
-            isDeleted = new AssignmentManager(context).deleteAssignmentByID(assignmentID);
+            isDeleted = new ClassTestManager(context).deleteClassTestByID(classTestID);
             if (isDeleted) {
                 CustomToast.SuccessToast(context, "Assignment Delete Successful");
-                assignmentArrayList = null;
-                assignmentArrayList = new AssignmentManager(context).getAllAssignment();
+                classTestModelArrayList = null;
+                classTestModelArrayList = new ClassTestManager(context).getAllClassTest();
                 notifyDataSetChanged();
             } else
                 CustomToast.FailToast(context, "failed");

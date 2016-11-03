@@ -16,7 +16,6 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -27,7 +26,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class AddAssignmentActivity extends AppCompatActivity {
+public class AddClassTestActivity extends AppCompatActivity {
     private AdapterForSemesterSpinner adapterForSemesterList;
     private ArrayList<SemesterModel> semesterModelArrayList;
     private SemesterManager semesterManager;
@@ -38,18 +37,18 @@ public class AddAssignmentActivity extends AppCompatActivity {
     private AdapterForCourseSpinner forCourseSpinnerAdapter;
 
 
-    private Spinner semesterListSpinnerAssignment, courseListSpinnerAssignment;
+    private Spinner semesterListSpinnerClassTest, courseListSpinnerClassTest;
 
 
-    private EditText submitDateET, assignmentTopicET;
-    private CheckBox remindCheckBox;
-    private ImageButton datePicAssignmentIBtn;
-    private Button btnAddAssignment, btnUpdateAssignment;
-    private AssignmentManager assignmentManager;
+    private EditText classTestDateET, classTestTopicET;
+    private CheckBox classTestremindCheckBox;
+    private ImageButton datePicClassTestIBtn;
+    private Button btnAddClassTest, btnUpdateClassTest;
+    private ClassTestManager classTestManager;
 
 
-    private int assignmentID;
-    private AssignmentModel aAssignment;
+    private int classTestID;
+    private ClassTestModel aClassTest;
     private int isStartSelect = 1;
     private SimpleDateFormat sdf;
     private Date selectedDate, nowDate;
@@ -64,64 +63,64 @@ public class AddAssignmentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_assignment);
+        setContentView(R.layout.activity_add_class_test);
         init();
     }
 
     private void init() {
-        datePicAssignmentIBtn = (ImageButton) findViewById(R.id.datePicAssignmentIBtn);
-        submitDateET = (EditText) findViewById(R.id.submitDateET);
-        assignmentTopicET = (EditText) findViewById(R.id.assignmentTopicET);
-        btnAddAssignment = (Button) findViewById(R.id.btnAddAssignment);
-        btnUpdateAssignment = (Button) findViewById(R.id.btnUpdateAssignment);
-        remindCheckBox = (CheckBox) findViewById(R.id.remindCheckBox);
-        remindCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        datePicClassTestIBtn = (ImageButton) findViewById(R.id.datePicClassTestIBtn);
+        classTestDateET = (EditText) findViewById(R.id.classTestDateET);
+        classTestTopicET = (EditText) findViewById(R.id.classTestTopicET);
+        btnAddClassTest = (Button) findViewById(R.id.btnAddClassTest);
+        btnUpdateClassTest = (Button) findViewById(R.id.btnUpdateClassTest);
+        classTestremindCheckBox = (CheckBox) findViewById(R.id.classTestremindCheckBox);
+        classTestremindCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     status_Active = 1;
-                    Toast.makeText(AddAssignmentActivity.this, String.valueOf(status_Active), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddClassTestActivity.this, String.valueOf(status_Active), Toast.LENGTH_SHORT).show();
                 } else {
                     status_Active = 0;
-                    Toast.makeText(AddAssignmentActivity.this, String.valueOf(status_Active), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddClassTestActivity.this, String.valueOf(status_Active), Toast.LENGTH_SHORT).show();
 
                 }
             }
         });
-        assignmentManager = new AssignmentManager(this);
-        assignmentID = getIntent().getIntExtra("assignmentID", -1);
-        if (assignmentID != -1) {
-            setTitle("Update Assignment");
-            btnAddAssignment.setVisibility(View.GONE);
-            btnUpdateAssignment.setVisibility(View.VISIBLE);
+        classTestManager = new ClassTestManager(this);
+        classTestID = getIntent().getIntExtra("classTestID", -1);
+        if (classTestID != -1) {
+            setTitle("Update Class Test");
+            btnAddClassTest.setVisibility(View.GONE);
+            btnUpdateClassTest.setVisibility(View.VISIBLE);
 
             setAllDataToField();
-            btnUpdateAssignment.setOnClickListener(new View.OnClickListener() {
+            btnUpdateClassTest.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    updateAssignmentInfo();
+                    updateClassTestInfo();
                 }
             });
 
         } else {
-            setTitle("Add Assignment");
-            btnUpdateAssignment.setVisibility(View.GONE);
-            btnAddAssignment.setVisibility(View.VISIBLE);
-            btnAddAssignment.setOnClickListener(new View.OnClickListener() {
+            setTitle("Add Class Test");
+            btnUpdateClassTest.setVisibility(View.GONE);
+            btnAddClassTest.setVisibility(View.VISIBLE);
+            btnAddClassTest.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (submitDateET.getText().length() > 0 && submitDateET.getText().toString() != "") {
-                        btnAddAssignment.setEnabled(true);
+                    if (classTestDateET.getText().length() > 0 && classTestDateET.getText().toString() != "") {
+                        btnAddClassTest.setEnabled(true);
 
                         insertData();
                     } else {
-                        btnAddAssignment.setEnabled(false);
-                        CustomToast.FailToast(AddAssignmentActivity.this, "Date can not be empty");
+                        btnAddClassTest.setEnabled(false);
+                        CustomToast.FailToast(AddClassTestActivity.this, "Date can not be empty");
                     }
                 }
             });
         }
-        datePicAssignmentIBtn.setOnClickListener(new View.OnClickListener() {
+        datePicClassTestIBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isStartSelect = 1000;
@@ -130,10 +129,10 @@ public class AddAssignmentActivity extends AppCompatActivity {
             }
         });
         sdf = new SimpleDateFormat("dd-MM-yyyy");
-        semesterListSpinnerAssignment = (Spinner) findViewById(R.id.semesterListSpinnerAssignment);
-        semesterListSpinnerAssignment.setPrompt("Select Semester");
+        semesterListSpinnerClassTest = (Spinner) findViewById(R.id.semesterListSpinnerClassTest);
+        semesterListSpinnerClassTest.setPrompt("Select Semester");
 
-        courseListSpinnerAssignment = (Spinner) findViewById(R.id.courseListSpinnerAssignment);
+        courseListSpinnerClassTest = (Spinner) findViewById(R.id.courseListSpinnerClassTest);
 
         semesterManager = new SemesterManager(this);
         courseManager = new CourseManager(this);
@@ -146,21 +145,21 @@ public class AddAssignmentActivity extends AppCompatActivity {
 
 
         forCourseSpinnerAdapter = new AdapterForCourseSpinner(this, courseModelArrayList);
-        courseListSpinnerAssignment.setAdapter(forCourseSpinnerAdapter);
-        if (assignmentID != -1)
-            courseListSpinnerAssignment.setSelection(aAssignment.getCourseID() - 1);
+        courseListSpinnerClassTest.setAdapter(forCourseSpinnerAdapter);
+        if (classTestID != -1)
+            courseListSpinnerClassTest.setSelection(aClassTest.getCourseID() - 1);
 
         adapterForSemesterList = new AdapterForSemesterSpinner(this, semesterModelArrayList);
-        semesterListSpinnerAssignment.setAdapter(adapterForSemesterList);
-        if (assignmentID != -1)
-            semesterListSpinnerAssignment.setSelection(aAssignment.getSemesterID() - 1);
-        semesterListSpinnerAssignment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        semesterListSpinnerClassTest.setAdapter(adapterForSemesterList);
+        if (classTestID != -1)
+            semesterListSpinnerClassTest.setSelection(aClassTest.getSemesterID() - 1);
+        semesterListSpinnerClassTest.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 semesterID = semesterModelArrayList.get(position).getSemesterID();
                 courseModelArrayList = courseManager.getAllCoursesBySemesterID(semesterID);
-                forCourseSpinnerAdapter = new AdapterForCourseSpinner(AddAssignmentActivity.this, courseModelArrayList);
-                courseListSpinnerAssignment.setAdapter(forCourseSpinnerAdapter);
+                forCourseSpinnerAdapter = new AdapterForCourseSpinner(AddClassTestActivity.this, courseModelArrayList);
+                courseListSpinnerClassTest.setAdapter(forCourseSpinnerAdapter);
 
             }
 
@@ -169,7 +168,7 @@ public class AddAssignmentActivity extends AppCompatActivity {
 
             }
         });
-        courseListSpinnerAssignment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        courseListSpinnerClassTest.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 courseID = courseModelArrayList.get(position).getCourseID();
@@ -213,41 +212,46 @@ public class AddAssignmentActivity extends AppCompatActivity {
             if (isStartSelect == 1000) {
                 try {
                     selectedDate = sdf.parse(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                    submitDateET.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                    classTestDateET.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
 
-                if (submitDateET.getText().length() > 0) {
-                    storeSubmitDate = submitDateET.getText().toString();
-                    btnAddAssignment.setEnabled(true);
-
-                }
+                if (classTestDateET.getText().length() > 0) {
+                    storeSubmitDate = classTestDateET.getText().toString();
+                    btnAddClassTest.setEnabled(true);
+                } else
+                    storeSubmitDate = "";
                 isStartSelect = 1;
+
             }
 
         }
     };
 
     private void insertData() {
-        String assignmentTitle = assignmentTopicET.getText().toString();
+        String classTestTitle = classTestTopicET.getText().toString();
 
         try {
-            selectedDate = sdf.parse(storeSubmitDate);
+            if (storeSubmitDate.length() > 0)
+                selectedDate = sdf.parse(storeSubmitDate);
+            else
+
+                CustomToast.FailToast(this, "Date Can Not Be Empty!");
             nowDate = sdf.parse(getDateTime());
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
         if (selectedDate.after(nowDate) && !selectedDate.before(nowDate)) {
-            if (assignmentTitle.length() > 2) {
+            if (classTestTitle.length() > 2) {
 
-                aAssignment = new AssignmentModel(semesterID, courseID, storeSubmitDate, assignmentTitle, status_Active);
-                boolean isInserted = assignmentManager.addNewAssignment(aAssignment);
+                aClassTest = new ClassTestModel(semesterID, courseID, storeSubmitDate, classTestTitle, status_Active);
+                boolean isInserted = classTestManager.addNewClassTest(aClassTest);
                 if (isInserted)
                     CustomToast.SuccessToast(this, "created successfully");
-                submitDateET.getText().clear();
-                assignmentTopicET.setText("");
+                classTestDateET.getText().clear();
+                classTestTopicET.setText("");
 
                 Calendar cal = Calendar.getInstance();
                 if (status_Active == 1) {
@@ -256,14 +260,14 @@ public class AddAssignmentActivity extends AppCompatActivity {
                     cal.set(Calendar.MINUTE, 30);
                     boolean isAlarmSet = setAlarm(cal);
                     if (isAlarmSet)
-                        CustomToast.SuccessToast(this, "Alarm set for this Assignment");
+                        CustomToast.SuccessToast(this, "Alarm set for this Class Test");
                     else
                         CustomToast.FailToast(this, "Failed to set alarm");
                 }
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        startActivity(new Intent(AddAssignmentActivity.this, AssignmentListActivity.class));
+                        startActivity(new Intent(AddClassTestActivity.this, ClassTestListActivity.class));
                         finish();
                     }
                 }, 5000);
@@ -277,29 +281,29 @@ public class AddAssignmentActivity extends AppCompatActivity {
     }
 
     private void setAllDataToField() {
-        aAssignment = assignmentManager.getAssignmentByID(assignmentID);
-        Log.d("from setall method", " getSemesterID  " + String.valueOf(aAssignment.getSemesterID()));
-        Log.d("from setall method", " getCourseID  " + String.valueOf(aAssignment.getCourseID()));
-        submitDateET.setText(aAssignment.getSubmitDate());
-        assignmentTopicET.setText(aAssignment.getTopic());
+        aClassTest = classTestManager.getClassTestByID(classTestID);
+        Log.d("from setall method", " getSemesterID  " + String.valueOf(aClassTest.getSemesterID()));
+        Log.d("from setall method", " getCourseID  " + String.valueOf(aClassTest.getCourseID()));
+        classTestDateET.setText(aClassTest.getTestDate());
+        classTestTopicET.setText(aClassTest.getClassTestTopic());
 
-        if (aAssignment.getAssignmentStatus() == 1) {
-            remindCheckBox.setChecked(true);
+        if (aClassTest.getClassTestStatus() == 1) {
+            classTestremindCheckBox.setChecked(true);
         } else {
-            remindCheckBox.setChecked(false);
+            classTestremindCheckBox.setChecked(false);
         }
 
     }
 
 
-    private void updateAssignmentInfo() {
-        String assignmentTitle = assignmentTopicET.getText().toString();
+    private void updateClassTestInfo() {
+        String classTestTitle = classTestTopicET.getText().toString();
 
         try {
             if (isStartSelect == 1) {
-                selectedDate = sdf.parse(submitDateET.getText().toString());
+                selectedDate = sdf.parse(classTestDateET.getText().toString());
                 nowDate = sdf.parse(getDateTime());
-                storeSubmitDate = submitDateET.getText().toString();
+                storeSubmitDate = classTestDateET.getText().toString();
             } else {
                 selectedDate = sdf.parse(storeSubmitDate);
                 nowDate = sdf.parse(getDateTime());
@@ -316,10 +320,10 @@ public class AddAssignmentActivity extends AppCompatActivity {
         if (selectedDate.equals(nowDate) || selectedDate.after(nowDate) && !selectedDate.before(nowDate))
 
         {
-            if (assignmentTitle.length() > 2 && storeSubmitDate.length() > 0) {
+            if (classTestTitle.length() > 2 && storeSubmitDate.length() > 0) {
 
-                aAssignment = new AssignmentModel(semesterID, courseID, storeSubmitDate, assignmentTitle, status_Active);
-                boolean isInserted = assignmentManager.editAssignment(assignmentID, aAssignment);
+                aClassTest = new ClassTestModel(semesterID, courseID, storeSubmitDate, classTestTitle, status_Active);
+                boolean isInserted = classTestManager.editClassTest(classTestID, aClassTest);
                 if (isInserted) {
                     CustomToast.SuccessToast(this, "Update successful");
 
@@ -330,7 +334,7 @@ public class AddAssignmentActivity extends AppCompatActivity {
                         cal.set(Calendar.MINUTE, 30);
                         boolean isAlarmSet = setAlarm(cal);
                         if (isAlarmSet)
-                            CustomToast.SuccessToast(this, "Alarm set for this Assignment");
+                            CustomToast.SuccessToast(this, "Alarm set for this Class Test");
                         else
                             CustomToast.FailToast(this, "Failed to set alarm");
                     }
@@ -339,7 +343,7 @@ public class AddAssignmentActivity extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        startActivity(new Intent(AddAssignmentActivity.this, AssignmentListActivity.class));
+                        startActivity(new Intent(AddClassTestActivity.this, ClassTestListActivity.class));
                         finish();
                     }
                 }, 600);
@@ -355,8 +359,8 @@ public class AddAssignmentActivity extends AppCompatActivity {
 
     // reset button method
     public void resetData(View view) {
-        submitDateET.getText().clear();
-        assignmentTopicET.getText().clear();
+        classTestDateET.getText().clear();
+        classTestTopicET.getText().clear();
     }
 
     private String getDateTime() {

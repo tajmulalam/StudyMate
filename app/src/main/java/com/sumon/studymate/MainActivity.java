@@ -84,7 +84,14 @@ public class MainActivity extends AppCompatActivity {
             btnAddSemester.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    insertData();
+                    if (startDateET.getText().length() > 0 && startDateET.getText().toString() != "" && endDateET.getText().length() > 0 && endDateET.getText().toString() != "") {
+                        btnAddSemester.setEnabled(true);
+
+                        insertData();
+                    } else {
+                        btnAddSemester.setEnabled(false);
+                        CustomToast.FailToast(MainActivity.this, "Date can not be empty");
+                    }
                 }
 
 
@@ -239,9 +246,11 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                if (startDateET.getText().length() > 0)
+                if (startDateET.getText().length() > 0) {
                     storeSatrtDate = startDateET.getText().toString();
-                isStartDate = 1;
+                    btnAddSemester.setEnabled(true);
+                    isStartDate = 1;
+                }
             }
             if (isEndDate == 2000) {
                 try {
@@ -251,9 +260,10 @@ public class MainActivity extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                if (endDateET.getText().length() > 0)
+                if (endDateET.getText().length() > 0) {
                     storeEndDate = endDateET.getText().toString();
-                isEndDate = 2;
+                    isEndDate = 2;
+                }
             }
         }
     };

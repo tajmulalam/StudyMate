@@ -20,6 +20,7 @@ public class DBHelper extends SQLiteOpenHelper {
     static final String TABLE_COURSES = "coursesTable";
     static final String TABLE_TEACHER = "teacherTable";
     static final String TABLE_ASSIGNMENT = "assignmentTable";
+    static final String TABLE_CLASS_TEST = "classTestTable";
 
 
     //SEMESTER TABLES COLUMNS
@@ -50,7 +51,11 @@ public class DBHelper extends SQLiteOpenHelper {
     static final String KEY_TOPIC = "topic";
     static final String KEY_ASSIGNMENT_STATUS = "assignment_status";
 
-
+    ///// CLASS TEST TABLE COLUMNS
+    static final String KEY_CLASS_TEST_ID = "class_test_id";
+    static final String KEY_TEST_DATE = "test_date";
+    static final String KEY_TEST_TOPIC = "class_test_topic";
+    static final String KEY_CLASS_TEST_STATUS = "class_test_status";
 
     // SEMESTER table create statement
     private static final String CREATE_TABLE_SEMESTER = "CREATE TABLE " + TABLE_SEMESTER
@@ -76,6 +81,11 @@ public class DBHelper extends SQLiteOpenHelper {
             + TABLE_ASSIGNMENT + "(" + KEY_ASSIGNMENT_ID + " INTEGER PRIMARY KEY," + KEY_SUBMIT_DATE
             + " DATETIME," + KEY_TOPIC + " TEXT," + KEY_ASSIGNMENT_STATUS + " INTEGER," + KEY_SEMESTER_ID + " INTEGER," + KEY_COURSE_ID + " INTEGER," + " FOREIGN KEY( " + KEY_SEMESTER_ID + " ) REFERENCES " + TABLE_SEMESTER + " ( " + KEY_SEMESTER_ID + " ) ON DELETE CASCADE," + " FOREIGN KEY( " + KEY_COURSE_ID + " )REFERENCES " + TABLE_COURSES + " ( " + KEY_COURSE_ID + " ) ON DELETE CASCADE " + ")";
 
+    // ASSIGNMENT table create statement
+    private static final String CREATE_TABLE_CLASS_TEST= "CREATE TABLE "
+            + TABLE_CLASS_TEST + "(" + KEY_CLASS_TEST_ID + " INTEGER PRIMARY KEY," + KEY_TEST_DATE
+            + " DATETIME," + KEY_TEST_TOPIC + " TEXT," + KEY_CLASS_TEST_STATUS + " INTEGER," + KEY_SEMESTER_ID + " INTEGER," + KEY_COURSE_ID + " INTEGER," + " FOREIGN KEY( " + KEY_SEMESTER_ID + " ) REFERENCES " + TABLE_SEMESTER + " ( " + KEY_SEMESTER_ID + " ) ON DELETE CASCADE," + " FOREIGN KEY( " + KEY_COURSE_ID + " )REFERENCES " + TABLE_COURSES + " ( " + KEY_COURSE_ID + " ) ON DELETE CASCADE " + ")";
+
 
 
 
@@ -90,6 +100,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_COURSES);
         db.execSQL(CREATE_TABLE_TEACHER);
         db.execSQL(CREATE_TABLE_ASSIGNMENT);
+        db.execSQL(CREATE_TABLE_CLASS_TEST);
 
     }
 
@@ -113,6 +124,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SEMESTER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_COURSES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TEACHER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ASSIGNMENT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CLASS_TEST);
 
 
         // create new tables

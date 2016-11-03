@@ -22,6 +22,10 @@ public class LauncherActivity extends AppCompatActivity {
     private ArrayList<CourseModel> allCourses;
     private TeacherManager teacherManager;
     private ArrayList<TeacherModel> teacherList;
+    private AssignmentManager assignmentManager;
+    private ArrayList<AssignmentModel> assignmentList;
+    private ClassTestManager classTestManager;
+    private ArrayList<ClassTestModel> classTestList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +96,8 @@ public class LauncherActivity extends AppCompatActivity {
         semesterManager = new SemesterManager(this);
         courseManager = new CourseManager(this);
         teacherManager = new TeacherManager(this);
+        assignmentManager=new AssignmentManager(this);
+        classTestManager=new ClassTestManager(this);
 
         //fill arraylist
         allSemester = new ArrayList<>();
@@ -103,11 +109,18 @@ public class LauncherActivity extends AppCompatActivity {
         teacherList = new ArrayList<>();
         teacherList = teacherManager.getAllTeacher();
 
+        assignmentList=new ArrayList<>();
+        assignmentList=assignmentManager.getAllAssignment();
+
+        classTestList=new ArrayList<>();
+        classTestList=classTestManager.getAllClassTest();
+
 
         semesterCountTV.setText(String.valueOf(allSemester.size()));
         courseCountTV.setText(String.valueOf(allCourses.size()));
         teacherCountTV.setText(String.valueOf(teacherList.size()));
-        assignmentCountTV.setText(String.valueOf(new AssignmentManager(this).getAllAssignment().size()));
+        assignmentCountTV.setText(String.valueOf(assignmentList.size()));
+        classTestCountTV.setText(String.valueOf(classTestList.size()));
     }
 
     private void goToRoutine() {
@@ -120,6 +133,8 @@ public class LauncherActivity extends AppCompatActivity {
     }
 
     private void goToClassTestList() {
+        startActivity(new Intent(LauncherActivity.this, ClassTestListActivity.class));
+
 
     }
 

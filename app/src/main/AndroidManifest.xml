@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.sumon.studymate">
-    <uses-sdk tools:overrideLibrary="com.github.johnpersano.supertoasts.library"/>
+
+    <uses-sdk tools:overrideLibrary="com.github.johnpersano.supertoasts.library" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -37,10 +39,20 @@
         <activity
             android:name=".AddAssignmentActivity"
             android:parentActivityName=".AssignmentListActivity" />
-        <activity android:name=".AssignmentListActivity"
-            android:parentActivityName=".LauncherActivity"></activity>
-        <receiver android:name=".AlarmReceiver" android:process=":remote" />
+        <activity
+            android:name=".AssignmentListActivity"
+            android:parentActivityName=".LauncherActivity" />
 
+        <receiver
+            android:name=".AlarmReceiver"
+            android:process=":remote" />
+
+        <activity
+            android:name=".AddClassTestActivity"
+            android:parentActivityName=".ClassTestListActivity" />
+        <activity
+            android:name=".ClassTestListActivity"
+            android:parentActivityName=".LauncherActivity"></activity>
     </application>
 
 </manifest>

@@ -20,4 +20,6 @@
     <string name="submitDate">Submit Date</string>
     <string name="assignmettopic">Assignment Topic</string>
     <string name="status">Status</string>
+    <string name="testDate">Test Date</string>
+    <string name="testTopic">Test Topic</string>
 </resources>
