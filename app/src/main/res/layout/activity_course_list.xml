@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@color/bg_launcher"
     tools:context="com.sumon.studymate.CourseListActivity">
 
     <LinearLayout
@@ -15,7 +16,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-
+        <!-- Editext for Search -->
+        <EditText android:id="@+id/inputSearchET"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search courses.."
+            android:inputType="textVisiblePassword"
+            android:background="@drawable/ic_text_bg_badge"
+            android:padding="@dimen/ten"/>
         <ListView
 
             android:id="@+id/coursesListView"

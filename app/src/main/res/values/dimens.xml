@@ -21,4 +21,5 @@
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="thirty">30dp</dimen>
     <dimen name="thirtyFive">35dp</dimen>
+    <dimen name="thirtySp">30sp</dimen>
 </resources>

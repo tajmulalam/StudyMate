@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -14,16 +17,17 @@ public class CourseListActivity extends AppCompatActivity {
     private AdapterForCourseList adapterForCourseList;
     private CourseManager courseManager;
     private ArrayList<CourseModel> allCourses;
+    private EditText inputSearchET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_list);
+        setTitle("Course List");
         coursesListView = (ListView) findViewById(R.id.coursesListView);
-        courseManager = new CourseManager(this);
-        allCourses = courseManager.getAllCourses();
-        adapterForCourseList = new AdapterForCourseList(this, allCourses);
-        coursesListView.setAdapter(adapterForCourseList);
+        inputSearchET= (EditText) findViewById(R.id.inputSearchET);
+
+        fillAdapter();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAddCourse);
 
 
@@ -33,6 +37,32 @@ public class CourseListActivity extends AppCompatActivity {
                 goToAddCourse();
             }
         });
+        inputSearchET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                CourseListActivity.this.adapterForCourseList.getFilter().filter(s);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    private void fillAdapter() {
+        courseManager = new CourseManager(this);
+        allCourses=new ArrayList<>();
+        allCourses = courseManager.getAllCourses();
+        adapterForCourseList = new AdapterForCourseList(this, allCourses);
+        adapterForCourseList.setFragmentManager(getFragmentManager());
+        coursesListView.setAdapter(adapterForCourseList);
+        adapterForCourseList.notifyDataSetChanged();
     }
 
     private void goToAddCourse() {

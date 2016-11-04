@@ -92,7 +92,7 @@ public class ClassTestManager {
 
                 int status = cursor.getInt(cursor.getColumnIndex(DBHelper.KEY_CLASS_TEST_STATUS));
 
-                aClassTest = new ClassTestModel(classTestID, semesterID, courseID, testDate, testTopic, status);
+                aClassTest = new ClassTestModel(classTestID, testDate, testTopic, status, semesterID, courseID);
                 allClassTest.add(aClassTest);
                 cursor.moveToNext();
             }
@@ -118,7 +118,7 @@ public class ClassTestManager {
 
             int status = cursor.getInt(cursor.getColumnIndex(DBHelper.KEY_CLASS_TEST_STATUS));
 
-            aClassTest = new ClassTestModel(classTestId, semesterID, courseID, testDate, testTopic, status);
+            aClassTest = new ClassTestModel(classTestId, testDate, testTopic, status, semesterID, courseID);
 
         }
         this.close();
@@ -137,5 +137,18 @@ public class ClassTestManager {
 
         } else
             return false;
+    }
+
+    public boolean markAsDoneClassTestByID(int classTestID, int status) {
+        this.open();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBHelper.KEY_CLASS_TEST_STATUS, status);
+        int updated = database.update(DBHelper.TABLE_CLASS_TEST, contentValues, DBHelper.KEY_CLASS_TEST_ID + " = " + classTestID, null);
+        this.close();
+        if (updated > 0) {
+            return true;
+        } else return false;
+
     }
 }

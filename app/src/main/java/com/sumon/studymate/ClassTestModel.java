@@ -6,51 +6,33 @@ package com.sumon.studymate;
 
 public class ClassTestModel {
     private int classTestID;
-    private int semesterID;
-    private int courseID;
     private String testDate;
     private String classTestTopic;
     private int classTestStatus;
+    private int semesterID;
+    private int courseID;
 
-    public ClassTestModel(int classTestID, int semesterID, int courseID, String testDate, String classTestTopic, int classTestStatus) {
+    public ClassTestModel(int classTestID, String testDate, String classTestTopic, int classTestStatus, int semesterID, int courseID) {
         this.classTestID = classTestID;
-        this.semesterID = semesterID;
-        this.courseID = courseID;
         this.testDate = testDate;
         this.classTestTopic = classTestTopic;
         this.classTestStatus = classTestStatus;
-    }
-
-
-    public ClassTestModel(int semesterID, int courseID, String testDate, String classTestTopic, int classTestStatus) {
         this.semesterID = semesterID;
         this.courseID = courseID;
+    }
+
+    public ClassTestModel(String testDate, String classTestTopic, int classTestStatus, int semesterID, int courseID) {
         this.testDate = testDate;
         this.classTestTopic = classTestTopic;
         this.classTestStatus = classTestStatus;
+        this.semesterID = semesterID;
+        this.courseID = courseID;
     }
-
 
     public int getClassTestID() {
         return classTestID;
     }
 
-
-    public int getSemesterID() {
-        return semesterID;
-    }
-
-    public void setSemesterID(int semesterID) {
-        this.semesterID = semesterID;
-    }
-
-    public int getCourseID() {
-        return courseID;
-    }
-
-    public void setCourseID(int courseID) {
-        this.courseID = courseID;
-    }
 
     public String getTestDate() {
         return testDate;
@@ -74,5 +56,21 @@ public class ClassTestModel {
 
     public void setClassTestStatus(int classTestStatus) {
         this.classTestStatus = classTestStatus;
+    }
+
+    public int getSemesterID() {
+        return semesterID;
+    }
+
+    public void setSemesterID(int semesterID) {
+        this.semesterID = semesterID;
+    }
+
+    public int getCourseID() {
+        return courseID;
+    }
+
+    public void setCourseID(int courseID) {
+        this.courseID = courseID;
     }
 }

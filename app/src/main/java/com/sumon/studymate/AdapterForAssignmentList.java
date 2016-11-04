@@ -87,19 +87,22 @@ public class AdapterForAssignmentList extends ArrayAdapter<AssignmentModel> impl
         try {
             deadlineDate = sdf.parse(assignmentArrayList.get(position).getSubmitDate());
             todayDate = sdf.parse(getDateTime());
-            Log.d("dateD","deadline "+String.valueOf(assignmentArrayList.get(position).getSubmitDate()));
-            Log.d("nowdate","now date "+String.valueOf(getDateTime()));
+            Log.d("dateD", "deadline " + String.valueOf(assignmentArrayList.get(position).getSubmitDate()));
+            Log.d("nowdate", "now date " + String.valueOf(getDateTime()));
         } catch (ParseException e) {
             e.printStackTrace();
         }
         holder.submitDateTV.setText("Deadline: " + assignmentArrayList.get(position).getSubmitDate());
-        if (assignmentArrayList.get(position).getAssignmentStatus() == 1||assignmentArrayList.get(position).getAssignmentStatus() == 0 &&  deadlineDate.after(todayDate)) {
-            holder.statusTV.setText("Status: " + "Pending");
-            holder.statusTV.setTextColor(Color.MAGENTA);
-        } if (deadlineDate.before(todayDate)){
-            holder.statusTV.setText("Status: " + "Submitted");
+        if (assignmentArrayList.get(position).getAssignmentStatus() == 1 || assignmentArrayList.get(position).getAssignmentStatus() == 0&&assignmentArrayList.get(position).getAssignmentStatus() != 3) {
+            holder.statusTV.setText("Pending");
+            holder.statusTV.setTextColor(Color.RED);
+        }
+        if (assignmentArrayList.get(position).getAssignmentStatus() == 3 || deadlineDate.before(todayDate)) {
+            holder.statusTV.setText("Submitted");
+            holder.statusTV.setTextColor(context.getResources().getColor(R.color.colorPrimary));
 
         }
+
 
         holder.assignmentEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override

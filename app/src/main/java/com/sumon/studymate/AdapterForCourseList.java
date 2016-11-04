@@ -3,10 +3,13 @@ package com.sumon.studymate;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -16,7 +19,7 @@ import java.util.ArrayList;
  * Created by Md Tajmul Alam Sumon on 10/28/2016.
  */
 
-public class AdapterForCourseList extends ArrayAdapter<CourseModel> implements MyAlert.WhichBtnClicked {
+public class AdapterForCourseList extends ArrayAdapter<CourseModel> implements MyAlert.WhichBtnClicked, Filterable {
     private Context context;
     private ArrayList<CourseModel> courseList;
     private LayoutInflater inflter;
@@ -54,6 +57,24 @@ public class AdapterForCourseList extends ArrayAdapter<CourseModel> implements M
     }
 
 
+    @NonNull
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                FilterResults filterResults = new FilterResults();
+
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            }
+        };
+    }
+
     static class ViewHolder {
 
         TextView courseTitleTV, courseCodeTV, courseCreditTV, courseTeacherTV, courseSemesterTV;
@@ -82,11 +103,13 @@ public class AdapterForCourseList extends ArrayAdapter<CourseModel> implements M
         holder.courseTitleTV.setText(courseList.get(position).getCourseTitle());
         holder.courseCodeTV.setText("Course Code: " + courseList.get(position).getCourseCode());
         holder.courseCreditTV.setText("Credit: " + courseList.get(position).getCourseCredit());
+
+
         aTeacher = teacherManager.getTeacherByID(courseList.get(position).getCourseTeacherID());
-        holder.courseTeacherTV.setText("Teacher: " + aTeacher.getTeacherName() != "" ? aTeacher.getTeacherName() : "Not Available");
+        holder.courseTeacherTV.setText("Teacher: " + aTeacher.getTeacherName());
 
         semester = new SemesterManager(context).getSemesterByID(courseList.get(position).getCourseSemesterID());
-        holder.courseSemesterTV.setText(semester.getSemesterTitle());
+        holder.courseSemesterTV.setText(semester.getSemesterTitle() == null ? "" : "Semester: " + semester.getSemesterTitle());
 
         holder.courseEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override

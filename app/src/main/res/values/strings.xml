@@ -22,4 +22,8 @@
     <string name="status">Status</string>
     <string name="testDate">Test Date</string>
     <string name="testTopic">Test Topic</string>
+    <string name="today">Today</string>
+    <string name="topic">Topic</string>
+    <string name="assignment">You Have A Assignment Today</string>
+    <string name="classtest">You Have a Class Test Today</string>
 </resources>

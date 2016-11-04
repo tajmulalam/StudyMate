@@ -4,18 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_launcher"
     android:fitsSystemWindows="true"
     tools:context="com.sumon.studymate.SemesterListActivity">
 
 
-    <GridView
-        android:padding="@dimen/five"
+    <ListView
         android:id="@+id/semesterListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="2"
-        android:verticalSpacing="@dimen/five"
-        android:horizontalSpacing="@dimen/five"/>
+        android:padding="@dimen/five"
+        android:divider="@drawable/semester_list_divider"
+        android:dividerHeight="4px"/>
 
 
     <android.support.design.widget.FloatingActionButton

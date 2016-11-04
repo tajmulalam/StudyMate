@@ -1,6 +1,5 @@
 package com.sumon.studymate;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -85,7 +83,7 @@ public class AdapterForSemesterList extends ArrayAdapter<SemesterModel> implemen
             @Override
             public void onClick(View v) {
                 semesterListID = semesterList.get(position).getSemesterID();
-                Intent addSemesterIntent = new Intent(context, MainActivity.class);
+                Intent addSemesterIntent = new Intent(context, AddSemesterActivity.class);
                 addSemesterIntent.putExtra("semesterID", semesterListID);
 //                mySharedPrefManager.insertIntoPreferenceInt("semesterID", semesterListID);
                 context.startActivity(addSemesterIntent);

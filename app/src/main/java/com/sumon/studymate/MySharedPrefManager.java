@@ -28,4 +28,12 @@ public class MySharedPrefManager {
         return sharedPreferences.getInt(key, 0);
 
     }
+
+    public void putString(String key, String value) {
+        editor.putString(key, value);
+    }
+
+    public String getString(String key) {
+        return sharedPreferences.getString(key, "bla");
+    }
 }

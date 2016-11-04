@@ -16,7 +16,6 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -60,6 +59,7 @@ public class AddAssignmentActivity extends AppCompatActivity {
     private int semesterID = -1;
     private int courseID = -1;
     private int status_Active = -1;
+    private MySharedPrefManager mySharedPrefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +69,7 @@ public class AddAssignmentActivity extends AppCompatActivity {
     }
 
     private void init() {
+        mySharedPrefManager=new MySharedPrefManager(this);
         datePicAssignmentIBtn = (ImageButton) findViewById(R.id.datePicAssignmentIBtn);
         submitDateET = (EditText) findViewById(R.id.submitDateET);
         assignmentTopicET = (EditText) findViewById(R.id.assignmentTopicET);
@@ -239,7 +240,7 @@ public class AddAssignmentActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        if (selectedDate.after(nowDate) && !selectedDate.before(nowDate)) {
+        if (selectedDate.equals(nowDate) || selectedDate.after(nowDate) && !selectedDate.before(nowDate)) {
             if (assignmentTitle.length() > 2) {
 
                 aAssignment = new AssignmentModel(semesterID, courseID, storeSubmitDate, assignmentTitle, status_Active);
@@ -252,11 +253,11 @@ public class AddAssignmentActivity extends AppCompatActivity {
                 Calendar cal = Calendar.getInstance();
                 if (status_Active == 1) {
                     cal.setTime(selectedDate);
-                    cal.set(Calendar.HOUR_OF_DAY, 8);
+                    cal.set(Calendar.HOUR_OF_DAY, 0);
                     cal.set(Calendar.MINUTE, 30);
-                    boolean isAlarmSet = setAlarm(cal);
+                    boolean isAlarmSet = setAlarm(cal,aAssignment);
                     if (isAlarmSet)
-                        CustomToast.SuccessToast(this, "Alarm set for this Assignment");
+                        CustomToast.SuccessToast(this, "We Will Notified you for this Assignment");
                     else
                         CustomToast.FailToast(this, "Failed to set alarm");
                 }
@@ -268,7 +269,7 @@ public class AddAssignmentActivity extends AppCompatActivity {
                     }
                 }, 5000);
             } else {
-                CustomToast.FailToast(this, "Input validation error");
+                CustomToast.FailToast(this, "Please Fill Properly");
             }
         } else {
             CustomToast.FailToast(this, "1. Submit Date must be greater or equal to current date");
@@ -324,13 +325,13 @@ public class AddAssignmentActivity extends AppCompatActivity {
                     CustomToast.SuccessToast(this, "Update successful");
 
                     Calendar cal = Calendar.getInstance();
-                    if (status_Active == 1) {
+                    if (status_Active == 1 ) {
                         cal.setTime(selectedDate);
-                        cal.set(Calendar.HOUR_OF_DAY, 8);
+                        cal.set(Calendar.HOUR_OF_DAY, 9);
                         cal.set(Calendar.MINUTE, 30);
-                        boolean isAlarmSet = setAlarm(cal);
+                        boolean isAlarmSet = setAlarm(cal,aAssignment);
                         if (isAlarmSet)
-                            CustomToast.SuccessToast(this, "Alarm set for this Assignment");
+                            CustomToast.SuccessToast(this, "We Will Notified you for this Assignment");
                         else
                             CustomToast.FailToast(this, "Failed to set alarm");
                     }
@@ -342,7 +343,7 @@ public class AddAssignmentActivity extends AppCompatActivity {
                         startActivity(new Intent(AddAssignmentActivity.this, AssignmentListActivity.class));
                         finish();
                     }
-                }, 600);
+                }, 5000);
             } else {
                 CustomToast.FailToast(this, "Please Make some changes to update information");
             }
@@ -368,13 +369,16 @@ public class AddAssignmentActivity extends AppCompatActivity {
 
     boolean isSet = false;
 
-    private boolean setAlarm(Calendar targetCal) {
+    private boolean setAlarm(Calendar targetCal, AssignmentModel aAssignment) {
+        mySharedPrefManager.putString("assignmentDate",aAssignment.getSubmitDate());
+        mySharedPrefManager.putString("assignmentTopic",aAssignment.getTopic());
+        mySharedPrefManager.insertIntoPreferenceInt("assignmentStatus",aAssignment.getAssignmentStatus());
+        mySharedPrefManager.insertIntoPreferenceInt("assignmentSemesterID",aAssignment.getSemesterID());
+        mySharedPrefManager.insertIntoPreferenceInt("assignmentCourseID",aAssignment.getCourseID());
+        mySharedPrefManager.insertIntoPreferenceInt("assignmentID",aAssignment.getAssignmentID());
 
-//        info.setText("\n\n***\n"
-//                + "Alarm is set@ " + targetCal.getTime() + "\n"
-//                + "***\n");
 
-        Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
+        Intent intent = new Intent(getBaseContext(), AlarmReceiverForAssignments.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), pendingIntent);

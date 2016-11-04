@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_notification"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.sumon.studymate.AssignmentsNotificationActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/ten"
+        android:background="@drawable/ic_bg"
+        android:text="@string/assignment"
+        android:textSize="@dimen/twintySp" />
+   <LinearLayout
+       android:background="@drawable/ic_text_bg_badge"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical">
+       <TextView
+           android:padding="@dimen/ten"
+           android:id="@+id/todayAssignmentDateTV"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="@string/today"
+           android:textSize="@dimen/eighteensp"/>
+       <TextView
+           android:padding="@dimen/ten"
+           android:id="@+id/topicAssignmentTV"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="@string/topic"
+           android:textSize="@dimen/eighteensp"/>
+
+       <TextView
+           android:padding="@dimen/ten"
+
+           android:id="@+id/semesterNameNotiAssignmentTV"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="@string/semesterTitle"
+           android:textSize="@dimen/eighteensp"/>
+
+       <TextView
+           android:padding="@dimen/ten"
+
+           android:id="@+id/courseNameNotiAssignmentTV"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="course"
+           android:textSize="@dimen/eighteensp"/>
+   </LinearLayout>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+       <Button
+           android:onClick="goToHome"
+           android:padding="@dimen/ten"
+           android:layout_margin="@dimen/ten"
+           android:background="@drawable/ic_text_bg_badge"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="go to Home"/>
+
+   </LinearLayout>
+</LinearLayout>

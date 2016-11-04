@@ -1,11 +1,7 @@
 package com.sumon.studymate;
 
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Handler;
-import android.os.Parcelable;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,20 +9,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperActivityToast;
-import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity {
+public class AddSemesterActivity extends AppCompatActivity {
 
     private ImageButton datePicImageBtn;
     private ImageButton datePicImageBtn2;
@@ -46,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_add_semester);
 
         init();
     }
@@ -90,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                         insertData();
                     } else {
                         btnAddSemester.setEnabled(false);
-                        CustomToast.FailToast(MainActivity.this, "Date can not be empty");
+                        CustomToast.FailToast(AddSemesterActivity.this, "Date can not be empty");
                     }
                 }
 
@@ -160,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        startActivity(new Intent(MainActivity.this, SemesterListActivity.class));
+                        startActivity(new Intent(AddSemesterActivity.this, SemesterListActivity.class));
                     }
                 }, 600);
             } else {
@@ -198,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        startActivity(new Intent(MainActivity.this, SemesterListActivity.class));
+                        startActivity(new Intent(AddSemesterActivity.this, SemesterListActivity.class));
                         finish();
                     }
                 }, 400);

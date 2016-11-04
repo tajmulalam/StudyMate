@@ -46,6 +46,8 @@ public class AddClassTestActivity extends AppCompatActivity {
     private Button btnAddClassTest, btnUpdateClassTest;
     private ClassTestManager classTestManager;
 
+    private MySharedPrefManager mySharedPrefManager;
+
 
     private int classTestID;
     private ClassTestModel aClassTest;
@@ -68,6 +70,7 @@ public class AddClassTestActivity extends AppCompatActivity {
     }
 
     private void init() {
+        mySharedPrefManager=new MySharedPrefManager(this);
         datePicClassTestIBtn = (ImageButton) findViewById(R.id.datePicClassTestIBtn);
         classTestDateET = (EditText) findViewById(R.id.classTestDateET);
         classTestTopicET = (EditText) findViewById(R.id.classTestTopicET);
@@ -243,24 +246,24 @@ public class AddClassTestActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        if (selectedDate.after(nowDate) && !selectedDate.before(nowDate)) {
+        if (selectedDate.equals(nowDate) || selectedDate.after(nowDate) && !selectedDate.before(nowDate)) {
             if (classTestTitle.length() > 2) {
 
-                aClassTest = new ClassTestModel(semesterID, courseID, storeSubmitDate, classTestTitle, status_Active);
+                aClassTest = new ClassTestModel(storeSubmitDate, classTestTitle, status_Active,semesterID, courseID);
                 boolean isInserted = classTestManager.addNewClassTest(aClassTest);
                 if (isInserted)
-                    CustomToast.SuccessToast(this, "created successfully");
+                    CustomToast.SuccessToast(this, "Created successfully");
                 classTestDateET.getText().clear();
                 classTestTopicET.setText("");
 
                 Calendar cal = Calendar.getInstance();
-                if (status_Active == 1) {
+                if (status_Active == 1 && isInserted) {
                     cal.setTime(selectedDate);
-                    cal.set(Calendar.HOUR_OF_DAY, 8);
+                    cal.set(Calendar.HOUR_OF_DAY, 0);
                     cal.set(Calendar.MINUTE, 30);
-                    boolean isAlarmSet = setAlarm(cal);
+                    boolean isAlarmSet = setAlarm(cal,aClassTest);
                     if (isAlarmSet)
-                        CustomToast.SuccessToast(this, "Alarm set for this Class Test");
+                        CustomToast.SuccessToast(this, "We Will Notified you for this  Class Test");
                     else
                         CustomToast.FailToast(this, "Failed to set alarm");
                 }
@@ -272,7 +275,7 @@ public class AddClassTestActivity extends AppCompatActivity {
                     }
                 }, 5000);
             } else {
-                CustomToast.FailToast(this, "Input validation error");
+                CustomToast.FailToast(this, "Please Fill Properly");
             }
         } else {
             CustomToast.FailToast(this, "1. Submit Date must be greater or equal to current date");
@@ -322,7 +325,7 @@ public class AddClassTestActivity extends AppCompatActivity {
         {
             if (classTestTitle.length() > 2 && storeSubmitDate.length() > 0) {
 
-                aClassTest = new ClassTestModel(semesterID, courseID, storeSubmitDate, classTestTitle, status_Active);
+                aClassTest = new ClassTestModel( storeSubmitDate, classTestTitle, status_Active,semesterID, courseID);
                 boolean isInserted = classTestManager.editClassTest(classTestID, aClassTest);
                 if (isInserted) {
                     CustomToast.SuccessToast(this, "Update successful");
@@ -330,11 +333,11 @@ public class AddClassTestActivity extends AppCompatActivity {
                     Calendar cal = Calendar.getInstance();
                     if (status_Active == 1) {
                         cal.setTime(selectedDate);
-                        cal.set(Calendar.HOUR_OF_DAY, 8);
+                        cal.set(Calendar.HOUR_OF_DAY, 0);
                         cal.set(Calendar.MINUTE, 30);
-                        boolean isAlarmSet = setAlarm(cal);
+                        boolean isAlarmSet = setAlarm(cal,aClassTest);
                         if (isAlarmSet)
-                            CustomToast.SuccessToast(this, "Alarm set for this Class Test");
+                            CustomToast.SuccessToast(this, "We Will Notified you for this  Class Test");
                         else
                             CustomToast.FailToast(this, "Failed to set alarm");
                     }
@@ -346,7 +349,7 @@ public class AddClassTestActivity extends AppCompatActivity {
                         startActivity(new Intent(AddClassTestActivity.this, ClassTestListActivity.class));
                         finish();
                     }
-                }, 600);
+                }, 5000);
             } else {
                 CustomToast.FailToast(this, "Please Make some changes to update information");
             }
@@ -372,13 +375,18 @@ public class AddClassTestActivity extends AppCompatActivity {
 
     boolean isSet = false;
 
-    private boolean setAlarm(Calendar targetCal) {
+    private boolean setAlarm(Calendar targetCal,ClassTestModel aClassTest) {
 
-//        info.setText("\n\n***\n"
-//                + "Alarm is set@ " + targetCal.getTime() + "\n"
-//                + "***\n");
 
-        Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
+        Intent intent = new Intent(getBaseContext(), AlarmReceiverForClassTest.class);
+
+        mySharedPrefManager.putString("testDate",aClassTest.getTestDate());
+        mySharedPrefManager.putString("testTopic",aClassTest.getClassTestTopic());
+        mySharedPrefManager.insertIntoPreferenceInt("classTestStatus",aClassTest.getClassTestStatus());
+        mySharedPrefManager.insertIntoPreferenceInt("semesterID",aClassTest.getSemesterID());
+        mySharedPrefManager.insertIntoPreferenceInt("courseID",aClassTest.getCourseID());
+        mySharedPrefManager.insertIntoPreferenceInt("classTestID",aClassTest.getClassTestID());
+
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), pendingIntent);

@@ -71,7 +71,7 @@ public class CourseManager {
 
                 String courseCredit = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_COURSE_CREDIT));
 
-                aCourse = new CourseModel(courseSemesterID, courseTeacherID, courseID, courseTitle, courseCode, courseCredit);
+                aCourse = new CourseModel(courseID,courseSemesterID, courseTeacherID, courseTitle, courseCode, courseCredit);
                 allCourses.add(aCourse);
                 cursor.moveToNext();
             }
@@ -144,5 +144,23 @@ public class CourseManager {
         }
         this.close();
         return aCourse;
+    }
+
+    public boolean updateCourse(int courseId, CourseModel aCourse) {
+
+        this.open();
+        ContentValues values = new ContentValues();
+        values.put(DBHelper.KEY_COURSE_TITTLE, aCourse.getCourseTitle());
+        values.put(DBHelper.KEY_COURSE_CODE, aCourse.getCourseCode());
+        values.put(DBHelper.KEY_COURSE_CREDIT, aCourse.getCourseCredit());
+        values.put(DBHelper.KEY_SEMESTER_ID, aCourse.getCourseSemesterID());
+        values.put(DBHelper.KEY_TEACHER_ID, aCourse.getCourseTeacherID());
+        int isUpdated = database.update(DBHelper.TABLE_COURSES, values, DBHelper.KEY_COURSE_ID + " = " + courseId, null);
+        this.close();
+        if (isUpdated > 0)
+            return true;
+        else
+            return false;
+
     }
 }

@@ -20,6 +20,7 @@ public class ClassTestListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_test_list);
+        setTitle("Class Test List");
 
         classTestListView = (ListView) findViewById(R.id.classTestListView);
 

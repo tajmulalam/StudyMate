@@ -134,4 +134,17 @@ public class AssignmentManager {
         } else
             return false;
     }
+
+    public boolean markAsDoneAssignmentByID(String topic,int status) {
+        this.open();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBHelper.KEY_ASSIGNMENT_STATUS, status);
+        int updated = database.update(DBHelper.TABLE_ASSIGNMENT, contentValues, DBHelper.KEY_TOPIC + " = " + topic, null);
+        this.close();
+        if (updated > 0) {
+            return true;
+        } else return false;
+
+    }
 }

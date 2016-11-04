@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".AddSemesterActivity"
             android:parentActivityName=".SemesterListActivity" />
         <activity
             android:name=".AddCoursesActivity"
@@ -35,7 +35,8 @@
             android:parentActivityName=".TeacherListActivity" />
         <activity
             android:name=".CourseListActivity"
-            android:parentActivityName=".LauncherActivity" />
+            android:parentActivityName=".LauncherActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".AddAssignmentActivity"
             android:parentActivityName=".AssignmentListActivity" />
@@ -44,14 +45,30 @@
             android:parentActivityName=".LauncherActivity" />
 
         <receiver
-            android:name=".AlarmReceiver"
+            android:name=".AlarmReceiverForClassTest"
             android:process=":remote" />
+        <receiver
+            android:name=".AlarmReceiverForAssignments"
+            android:process=":remote" />
+
+        <service
+            android:name=".MyAlarmServiceForClassTest"
+            android:enabled="true" />
+        <service
+            android:name=".MyAlarmServiceForAssignments"
+            android:enabled="true" />
 
         <activity
             android:name=".AddClassTestActivity"
             android:parentActivityName=".ClassTestListActivity" />
         <activity
             android:name=".ClassTestListActivity"
+            android:parentActivityName=".LauncherActivity" />
+        <activity
+            android:name=".ClassTestNotificationActivity"
+            android:parentActivityName=".LauncherActivity" />
+        <activity
+            android:name=".AssignmentsNotificationActivity"
             android:parentActivityName=".LauncherActivity"></activity>
     </application>
 

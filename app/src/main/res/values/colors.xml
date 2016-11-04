@@ -3,4 +3,5 @@
     <color name="colorPrimary">#05ad94</color>
     <color name="colorPrimaryDark">#026d5d</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="bg_launcher">#E5E5E5</color>
 </resources>

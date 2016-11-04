@@ -86,19 +86,23 @@ public class AdapterForClassTestList extends ArrayAdapter<ClassTestModel> implem
         try {
             deadlineDate = sdf.parse(classTestModelArrayList.get(position).getTestDate());
             todayDate = sdf.parse(getDateTime());
-            Log.d("dateD","deadline "+String.valueOf(classTestModelArrayList.get(position).getTestDate()));
-            Log.d("nowdate","now date "+String.valueOf(getDateTime()));
+            Log.d("dateD", "deadline " + String.valueOf(classTestModelArrayList.get(position).getTestDate()));
+            Log.d("nowdate", "now date " + String.valueOf(getDateTime()));
         } catch (ParseException e) {
             e.printStackTrace();
         }
         holder.classTestDateTV.setText("Deadline: " + classTestModelArrayList.get(position).getTestDate());
-        if (classTestModelArrayList.get(position).getClassTestStatus() == 1||classTestModelArrayList.get(position).getClassTestStatus() == 0 &&  deadlineDate.after(todayDate)) {
-            holder.classTestStatusTV.setText("Status: " + "Pending");
-            holder.classTestStatusTV.setTextColor(Color.MAGENTA);
-        } if (deadlineDate.before(todayDate)){
-            holder.classTestStatusTV.setText("Status: " + "Submitted");
+        if (classTestModelArrayList.get(position).getClassTestStatus() == 1 || classTestModelArrayList.get(position).getClassTestStatus() == 0) {
+            holder.classTestStatusTV.setText("Pending");
+            holder.classTestStatusTV.setTextColor(Color.RED);
+        }
+        if (classTestModelArrayList.get(position).getClassTestStatus() == 3|| deadlineDate.before(todayDate)) {
+            holder.classTestStatusTV.setText("Class Test Done");
+            holder.classTestStatusTV.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+
 
         }
+
 
         holder.classTestEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override

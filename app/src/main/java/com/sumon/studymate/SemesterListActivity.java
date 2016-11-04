@@ -2,7 +2,6 @@ package com.sumon.studymate;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +14,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class SemesterListActivity extends AppCompatActivity {
-    private GridView semesterListView;
+    private ListView semesterListView;
     private SemesterManager semesterManager;
     private ArrayList<SemesterModel> semesterModelArrayList;
     private AdapterForSemesterList adapterForSemesterList;
@@ -29,7 +28,7 @@ public class SemesterListActivity extends AppCompatActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        semesterListView = (GridView) findViewById(R.id.semesterListView);
+        semesterListView = (ListView) findViewById(R.id.semesterListView);
         semesterManager = new SemesterManager(this);
         fillAdapter();
         fab.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +84,7 @@ public class SemesterListActivity extends AppCompatActivity {
     }
 
     private void goToAddSemester() {
-        startActivity(new Intent(SemesterListActivity.this, MainActivity.class));
+        startActivity(new Intent(SemesterListActivity.this, AddSemesterActivity.class));
         finish();
 
     }
