@@ -18,9 +18,12 @@ public class TeacherManager {
     private Cursor cursor;
     private DBHelper dbHelper;
     private SQLiteDatabase database;
+    private Context context;
+
     //// constructor
     public TeacherManager(Context context) {
         dbHelper = new DBHelper(context);
+        this.context = context;
     }
 
     ///// open database  connection
@@ -33,31 +36,32 @@ public class TeacherManager {
         dbHelper.close();
     }
 
-    public boolean addNewTeacher(int semesterID,TeacherModel aTeacher){
+    public boolean addNewTeacher(TeacherModel aTeacher) {
         this.open();
-        ContentValues  values=new ContentValues();
-        values.put(DBHelper.KEY_TEACHER_NAME,aTeacher.getTeacherName());
-        values.put(DBHelper.KEY_TEACHER_DESIGNATION,aTeacher.getTeacherDesignation());
-        values.put(DBHelper.KEY_TEACHER_MOBILE,aTeacher.getTeacherMobile());
-        values.put(DBHelper.KEY_TEACHER_EMAIL,aTeacher.getTeacherEmail());
-        values.put(DBHelper.KEY_SEMESTER_ID,semesterID);
-        long isInserted=database.insert(DBHelper.TABLE_TEACHER,null,values);
+        ContentValues values = new ContentValues();
+        values.put(DBHelper.KEY_TEACHER_NAME, aTeacher.getTeacherName());
+        values.put(DBHelper.KEY_TEACHER_DESIGNATION, aTeacher.getTeacherDesignation());
+        values.put(DBHelper.KEY_TEACHER_MOBILE, aTeacher.getTeacherMobile());
+        values.put(DBHelper.KEY_TEACHER_EMAIL, aTeacher.getTeacherEmail());
+        values.put(DBHelper.KEY_SEMESTER_ID, aTeacher.getSemesterID());
+        long isInserted = database.insert(DBHelper.TABLE_TEACHER, null, values);
         this.close();
-        if (isInserted==-1)
-            return  false;
+        if (isInserted == -1)
+            return false;
         else
             return true;
 
     }
 
-    public ArrayList<TeacherModel> getAllTeacher(){
+    public ArrayList<TeacherModel> getAllTeacher() {
         this.open();
-        allTeacher=new ArrayList<>();
-        cursor = database.query(DBHelper.TABLE_TEACHER, null, null, null, null, null, null, null);
+        allTeacher = new ArrayList<>();
+        cursor = database.query(DBHelper.TABLE_TEACHER, null, null, null, null, null,  DBHelper.KEY_TEACHER_ID + " DESC", null);
         cursor.moveToFirst();
         if (cursor != null && cursor.getCount() > 0) {
             for (int i = 0; i < cursor.getCount(); i++) {
                 int teacherID = cursor.getInt(cursor.getColumnIndex(DBHelper.KEY_TEACHER_ID));
+                int semesterID = cursor.getInt(cursor.getColumnIndex(DBHelper.KEY_SEMESTER_ID));
 
                 String teacherName = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_TEACHER_NAME));
 
@@ -66,7 +70,7 @@ public class TeacherManager {
                 String mob = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_TEACHER_MOBILE));
                 String email = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_TEACHER_EMAIL));
 
-                aTeacher = new TeacherModel(teacherID, teacherName, designation,mob,email);
+                aTeacher = new TeacherModel(teacherID, teacherName, designation, mob, email, semesterID);
                 allTeacher.add(aTeacher);
                 cursor.moveToNext();
             }
@@ -74,14 +78,16 @@ public class TeacherManager {
         this.close();
         return allTeacher;
     }
-    public ArrayList<TeacherModel> getAllTeacherBySemesterID(int id){
+
+    public ArrayList<TeacherModel> getAllTeacherBySemesterID(int id) {
         this.open();
-        allTeacher=new ArrayList<>();
-        cursor = database.query(DBHelper.TABLE_TEACHER, new String[]{DBHelper.KEY_TEACHER_ID, DBHelper.KEY_TEACHER_NAME, DBHelper.KEY_TEACHER_DESIGNATION, DBHelper.KEY_TEACHER_MOBILE, DBHelper.KEY_TEACHER_EMAIL}, DBHelper.KEY_SEMESTER_ID + " = " + id, null, null, null, null);
+        allTeacher = new ArrayList<>();
+        cursor = database.query(DBHelper.TABLE_TEACHER, new String[]{DBHelper.KEY_TEACHER_ID, DBHelper.KEY_TEACHER_NAME, DBHelper.KEY_TEACHER_DESIGNATION, DBHelper.KEY_TEACHER_MOBILE, DBHelper.KEY_TEACHER_EMAIL, DBHelper.KEY_SEMESTER_ID}, DBHelper.KEY_SEMESTER_ID + " = " + id, null, null, null, DBHelper.KEY_TEACHER_ID + " DESC");
         cursor.moveToFirst();
         if (cursor != null && cursor.getCount() > 0) {
             for (int i = 0; i < cursor.getCount(); i++) {
                 int teacherID = cursor.getInt(cursor.getColumnIndex(DBHelper.KEY_TEACHER_ID));
+                int semesterID = cursor.getInt(cursor.getColumnIndex(DBHelper.KEY_SEMESTER_ID));
 
                 String teacherName = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_TEACHER_NAME));
 
@@ -90,7 +96,7 @@ public class TeacherManager {
                 String mob = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_TEACHER_MOBILE));
                 String email = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_TEACHER_EMAIL));
 
-                aTeacher = new TeacherModel(teacherID, teacherName, designation,mob,email);
+                aTeacher = new TeacherModel(teacherID, teacherName, designation, mob, email, semesterID);
                 allTeacher.add(aTeacher);
                 cursor.moveToNext();
             }
@@ -98,14 +104,15 @@ public class TeacherManager {
         this.close();
         return allTeacher;
     }
-    public boolean editTeacher(int teacherId, TeacherModel aTeacher,int semesterID) {
+
+    public boolean editTeacher(int teacherId, TeacherModel aTeacher) {
         this.open();
         ContentValues values = new ContentValues();
-        values.put(DBHelper.KEY_TEACHER_NAME,aTeacher.getTeacherName());
-        values.put(DBHelper.KEY_TEACHER_DESIGNATION,aTeacher.getTeacherDesignation());
-        values.put(DBHelper.KEY_TEACHER_MOBILE,aTeacher.getTeacherMobile());
-        values.put(DBHelper.KEY_TEACHER_EMAIL,aTeacher.getTeacherEmail());
-        values.put(DBHelper.KEY_SEMESTER_ID,semesterID);
+        values.put(DBHelper.KEY_TEACHER_NAME, aTeacher.getTeacherName());
+        values.put(DBHelper.KEY_TEACHER_DESIGNATION, aTeacher.getTeacherDesignation());
+        values.put(DBHelper.KEY_TEACHER_MOBILE, aTeacher.getTeacherMobile());
+        values.put(DBHelper.KEY_TEACHER_EMAIL, aTeacher.getTeacherEmail());
+        values.put(DBHelper.KEY_SEMESTER_ID, aTeacher.getSemesterID());
         int isUpdated = database.update(DBHelper.TABLE_TEACHER, values, DBHelper.KEY_TEACHER_ID + " = " + teacherId, null);
         this.close();
         if (isUpdated > 0)
@@ -117,9 +124,11 @@ public class TeacherManager {
 
     public TeacherModel getTeacherByID(int id) {
         this.open();
-        cursor = database.query(DBHelper.TABLE_TEACHER, new String[]{DBHelper.KEY_TEACHER_ID, DBHelper.KEY_TEACHER_NAME, DBHelper.KEY_TEACHER_DESIGNATION, DBHelper.KEY_TEACHER_MOBILE, DBHelper.KEY_TEACHER_EMAIL}, DBHelper.KEY_TEACHER_ID + " = " + id, null, null, null, null);
+        cursor = database.query(DBHelper.TABLE_TEACHER, new String[]{DBHelper.KEY_TEACHER_ID, DBHelper.KEY_TEACHER_NAME, DBHelper.KEY_TEACHER_DESIGNATION, DBHelper.KEY_TEACHER_MOBILE, DBHelper.KEY_TEACHER_EMAIL, DBHelper.KEY_SEMESTER_ID}, DBHelper.KEY_TEACHER_ID + " = " + id, null, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
-            int teacherID=cursor.getInt(cursor.getColumnIndex(DBHelper.KEY_TEACHER_ID));
+            int teacherID = cursor.getInt(cursor.getColumnIndex(DBHelper.KEY_TEACHER_ID));
+            int semesterID = cursor.getInt(cursor.getColumnIndex(DBHelper.KEY_SEMESTER_ID));
+
             String teacherName = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_TEACHER_NAME));
 
             String teacherDesig = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_TEACHER_DESIGNATION));
@@ -127,17 +136,24 @@ public class TeacherManager {
             String teacherMob = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_TEACHER_MOBILE));
             String teacherEmail = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_TEACHER_EMAIL));
 
-            aTeacher = new TeacherModel(teacherID, teacherName, teacherDesig, teacherMob,teacherEmail);
+            aTeacher = new TeacherModel(teacherID, teacherName, teacherDesig, teacherMob, teacherEmail, semesterID);
         }
         this.close();
         return aTeacher;
     }
 
-    public void deleteTeacherBySemesterID(int semesterListID) {
+
+
+
+    public boolean deleteTeacherByID(int teacherID) {
         this.open();
-        database.delete(DBHelper.TABLE_TEACHER, DBHelper.KEY_SEMESTER_ID + " = " + semesterListID, null);
+        int deleted = database.delete(DBHelper.TABLE_TEACHER, DBHelper.KEY_TEACHER_ID + " = " + teacherID, null);
+
         this.close();
+        if (deleted > 0 ) {
+            return true;
 
+        } else
+            return false;
     }
-
 }

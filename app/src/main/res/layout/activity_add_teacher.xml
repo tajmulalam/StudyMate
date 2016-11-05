@@ -85,7 +85,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="@dimen/five"
             android:background="@drawable/ic_bg"
             android:text="Add Teacher" />
+        <Button
+            android:id="@+id/btnUpdateTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_bg"
+            android:onClick="next"
+            android:text="Update"
+            android:visibility="gone" />
     </LinearLayout>
 </LinearLayout>

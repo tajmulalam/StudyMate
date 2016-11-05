@@ -10,21 +10,24 @@ public class TeacherModel {
     private String teacherDesignation;
     private String teacherMobile;
     private String teacherEmail;
+    private int semesterID;
 
 
-    public TeacherModel(int teacherID, String teacherName, String teacherDesignation, String teacherMobile, String teacherEmail) {
+    public TeacherModel(int teacherID, String teacherName, String teacherDesignation, String teacherMobile, String teacherEmail, int semesterID) {
         this.teacherID = teacherID;
         this.teacherName = teacherName;
         this.teacherDesignation = teacherDesignation;
         this.teacherMobile = teacherMobile;
         this.teacherEmail = teacherEmail;
+        this.semesterID = semesterID;
     }
 
-    public TeacherModel(String teacherName, String teacherDesignation, String teacherMobile, String teacherEmail) {
+    public TeacherModel(String teacherName, String teacherDesignation, String teacherMobile, String teacherEmail, int semesterID) {
         this.teacherName = teacherName;
         this.teacherDesignation = teacherDesignation;
         this.teacherMobile = teacherMobile;
         this.teacherEmail = teacherEmail;
+        this.semesterID = semesterID;
     }
 
     public int getTeacherID() {
@@ -62,5 +65,13 @@ public class TeacherModel {
 
     public void setTeacherEmail(String teacherEmail) {
         this.teacherEmail = teacherEmail;
+    }
+
+    public int getSemesterID() {
+        return semesterID;
+    }
+
+    public void setSemesterID(int semesterID) {
+        this.semesterID = semesterID;
     }
 }

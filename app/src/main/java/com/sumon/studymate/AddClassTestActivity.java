@@ -70,7 +70,7 @@ public class AddClassTestActivity extends AppCompatActivity {
     }
 
     private void init() {
-        mySharedPrefManager=new MySharedPrefManager(this);
+        mySharedPrefManager = new MySharedPrefManager(this);
         datePicClassTestIBtn = (ImageButton) findViewById(R.id.datePicClassTestIBtn);
         classTestDateET = (EditText) findViewById(R.id.classTestDateET);
         classTestTopicET = (EditText) findViewById(R.id.classTestTopicET);
@@ -249,7 +249,7 @@ public class AddClassTestActivity extends AppCompatActivity {
         if (selectedDate.equals(nowDate) || selectedDate.after(nowDate) && !selectedDate.before(nowDate)) {
             if (classTestTitle.length() > 2) {
 
-                aClassTest = new ClassTestModel(storeSubmitDate, classTestTitle, status_Active,semesterID, courseID);
+                aClassTest = new ClassTestModel(storeSubmitDate, classTestTitle, status_Active, semesterID, courseID);
                 boolean isInserted = classTestManager.addNewClassTest(aClassTest);
                 if (isInserted)
                     CustomToast.SuccessToast(this, "Created successfully");
@@ -261,7 +261,7 @@ public class AddClassTestActivity extends AppCompatActivity {
                     cal.setTime(selectedDate);
                     cal.set(Calendar.HOUR_OF_DAY, 0);
                     cal.set(Calendar.MINUTE, 30);
-                    boolean isAlarmSet = setAlarm(cal,aClassTest);
+                    boolean isAlarmSet = setAlarm(cal, aClassTest);
                     if (isAlarmSet)
                         CustomToast.SuccessToast(this, "We Will Notified you for this  Class Test");
                     else
@@ -325,7 +325,7 @@ public class AddClassTestActivity extends AppCompatActivity {
         {
             if (classTestTitle.length() > 2 && storeSubmitDate.length() > 0) {
 
-                aClassTest = new ClassTestModel( storeSubmitDate, classTestTitle, status_Active,semesterID, courseID);
+                aClassTest = new ClassTestModel(storeSubmitDate, classTestTitle, status_Active, semesterID, courseID);
                 boolean isInserted = classTestManager.editClassTest(classTestID, aClassTest);
                 if (isInserted) {
                     CustomToast.SuccessToast(this, "Update successful");
@@ -335,7 +335,7 @@ public class AddClassTestActivity extends AppCompatActivity {
                         cal.setTime(selectedDate);
                         cal.set(Calendar.HOUR_OF_DAY, 0);
                         cal.set(Calendar.MINUTE, 30);
-                        boolean isAlarmSet = setAlarm(cal,aClassTest);
+                        boolean isAlarmSet = setAlarm(cal, aClassTest);
                         if (isAlarmSet)
                             CustomToast.SuccessToast(this, "We Will Notified you for this  Class Test");
                         else
@@ -375,17 +375,17 @@ public class AddClassTestActivity extends AppCompatActivity {
 
     boolean isSet = false;
 
-    private boolean setAlarm(Calendar targetCal,ClassTestModel aClassTest) {
+    private boolean setAlarm(Calendar targetCal, ClassTestModel aClassTest) {
 
 
         Intent intent = new Intent(getBaseContext(), AlarmReceiverForClassTest.class);
 
-        mySharedPrefManager.putString("testDate",aClassTest.getTestDate());
-        mySharedPrefManager.putString("testTopic",aClassTest.getClassTestTopic());
-        mySharedPrefManager.insertIntoPreferenceInt("classTestStatus",aClassTest.getClassTestStatus());
-        mySharedPrefManager.insertIntoPreferenceInt("semesterID",aClassTest.getSemesterID());
-        mySharedPrefManager.insertIntoPreferenceInt("courseID",aClassTest.getCourseID());
-        mySharedPrefManager.insertIntoPreferenceInt("classTestID",aClassTest.getClassTestID());
+        mySharedPrefManager.putString("testDate", aClassTest.getTestDate());
+        mySharedPrefManager.putString("testTopic", aClassTest.getClassTestTopic());
+        mySharedPrefManager.insertIntoPreferenceInt("classTestStatus", aClassTest.getClassTestStatus());
+        mySharedPrefManager.insertIntoPreferenceInt("semesterID", aClassTest.getSemesterID());
+        mySharedPrefManager.insertIntoPreferenceInt("courseID", aClassTest.getCourseID());
+        mySharedPrefManager.insertIntoPreferenceInt("classTestID", aClassTest.getClassTestID());
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -395,5 +395,12 @@ public class AddClassTestActivity extends AppCompatActivity {
             return true;
         else
             return false;
+    }
+
+    public void resetDataClassTest(View view) {
+
+        classTestDateET.getText().clear();
+        classTestTopicET.getText().clear();
+        classTestremindCheckBox.setChecked(false);
     }
 }

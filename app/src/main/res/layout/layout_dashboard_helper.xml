@@ -275,7 +275,8 @@
                         android:gravity="center"
                         android:text="TEACHERS"
                         android:textColor="@color/mdtp_white"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:id="@+id/textView" />
 
                 </LinearLayout>
 

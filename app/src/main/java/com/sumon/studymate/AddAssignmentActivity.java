@@ -69,7 +69,7 @@ public class AddAssignmentActivity extends AppCompatActivity {
     }
 
     private void init() {
-        mySharedPrefManager=new MySharedPrefManager(this);
+        mySharedPrefManager = new MySharedPrefManager(this);
         datePicAssignmentIBtn = (ImageButton) findViewById(R.id.datePicAssignmentIBtn);
         submitDateET = (EditText) findViewById(R.id.submitDateET);
         assignmentTopicET = (EditText) findViewById(R.id.assignmentTopicET);
@@ -255,7 +255,7 @@ public class AddAssignmentActivity extends AppCompatActivity {
                     cal.setTime(selectedDate);
                     cal.set(Calendar.HOUR_OF_DAY, 0);
                     cal.set(Calendar.MINUTE, 30);
-                    boolean isAlarmSet = setAlarm(cal,aAssignment);
+                    boolean isAlarmSet = setAlarm(cal, aAssignment);
                     if (isAlarmSet)
                         CustomToast.SuccessToast(this, "We Will Notified you for this Assignment");
                     else
@@ -325,11 +325,11 @@ public class AddAssignmentActivity extends AppCompatActivity {
                     CustomToast.SuccessToast(this, "Update successful");
 
                     Calendar cal = Calendar.getInstance();
-                    if (status_Active == 1 ) {
+                    if (status_Active == 1) {
                         cal.setTime(selectedDate);
                         cal.set(Calendar.HOUR_OF_DAY, 9);
                         cal.set(Calendar.MINUTE, 30);
-                        boolean isAlarmSet = setAlarm(cal,aAssignment);
+                        boolean isAlarmSet = setAlarm(cal, aAssignment);
                         if (isAlarmSet)
                             CustomToast.SuccessToast(this, "We Will Notified you for this Assignment");
                         else
@@ -358,6 +358,7 @@ public class AddAssignmentActivity extends AppCompatActivity {
     public void resetData(View view) {
         submitDateET.getText().clear();
         assignmentTopicET.getText().clear();
+        remindCheckBox.setChecked(false);
     }
 
     private String getDateTime() {
@@ -370,12 +371,12 @@ public class AddAssignmentActivity extends AppCompatActivity {
     boolean isSet = false;
 
     private boolean setAlarm(Calendar targetCal, AssignmentModel aAssignment) {
-        mySharedPrefManager.putString("assignmentDate",aAssignment.getSubmitDate());
-        mySharedPrefManager.putString("assignmentTopic",aAssignment.getTopic());
-        mySharedPrefManager.insertIntoPreferenceInt("assignmentStatus",aAssignment.getAssignmentStatus());
-        mySharedPrefManager.insertIntoPreferenceInt("assignmentSemesterID",aAssignment.getSemesterID());
-        mySharedPrefManager.insertIntoPreferenceInt("assignmentCourseID",aAssignment.getCourseID());
-        mySharedPrefManager.insertIntoPreferenceInt("assignmentID",aAssignment.getAssignmentID());
+        mySharedPrefManager.putString("assignmentDate", aAssignment.getSubmitDate());
+        mySharedPrefManager.putString("assignmentTopic", aAssignment.getTopic());
+        mySharedPrefManager.insertIntoPreferenceInt("assignmentStatus", aAssignment.getAssignmentStatus());
+        mySharedPrefManager.insertIntoPreferenceInt("assignmentSemesterID", aAssignment.getSemesterID());
+        mySharedPrefManager.insertIntoPreferenceInt("assignmentCourseID", aAssignment.getCourseID());
+        mySharedPrefManager.insertIntoPreferenceInt("assignmentID", aAssignment.getAssignmentID());
 
 
         Intent intent = new Intent(getBaseContext(), AlarmReceiverForAssignments.class);

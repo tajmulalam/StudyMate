@@ -77,7 +77,7 @@ public class AssignmentManager {
     public ArrayList<AssignmentModel> getAllAssignment() {
         this.open();
         allAssignment = new ArrayList<>();
-        cursor = database.query(DBHelper.TABLE_ASSIGNMENT, null, null, null, null, null, null, null);
+        cursor = database.query(DBHelper.TABLE_ASSIGNMENT, null, null, null, null, null,  DBHelper.KEY_ASSIGNMENT_ID + " DESC", null);
         cursor.moveToFirst();
         if (cursor != null && cursor.getCount() > 0) {
             for (int i = 0; i < cursor.getCount(); i++) {
@@ -135,7 +135,7 @@ public class AssignmentManager {
             return false;
     }
 
-    public boolean markAsDoneAssignmentByID(String topic,int status) {
+    public boolean markAsDoneAssignmentByID(String topic, int status) {
         this.open();
 
         ContentValues contentValues = new ContentValues();
@@ -147,4 +147,6 @@ public class AssignmentManager {
         } else return false;
 
     }
+
+
 }

@@ -21,11 +21,13 @@ public class TeacherListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_list);
+        setTitle("Teacher List");
         teacherListView = (ListView) findViewById(R.id.teacherListView);
         teacherManager = new TeacherManager(this);
         teacherlist = new ArrayList<>();
         teacherlist = teacherManager.getAllTeacher();
         adapterForTeacherList = new AdapterForTeacherList(this, teacherlist);
+        adapterForTeacherList.setFragmentManager(getFragmentManager());
 
         teacherListView.setAdapter(adapterForTeacherList);
 

@@ -77,7 +77,7 @@ public class ClassTestManager {
     public ArrayList<ClassTestModel> getAllClassTest() {
         this.open();
         allClassTest = new ArrayList<>();
-        cursor = database.query(DBHelper.TABLE_CLASS_TEST, null, null, null, null, null, null, null);
+        cursor = database.query(DBHelper.TABLE_CLASS_TEST, null, null, null, null, null,  DBHelper.KEY_CLASS_TEST_ID + " DESC", null);
         cursor.moveToFirst();
         if (cursor != null && cursor.getCount() > 0) {
             for (int i = 0; i < cursor.getCount(); i++) {
@@ -150,5 +150,15 @@ public class ClassTestManager {
             return true;
         } else return false;
 
+    }
+
+    public boolean deleteClassTestByTeacherID(int teacherID) {
+        this.open();
+        int deleted = database.delete(DBHelper.TABLE_CLASS_TEST, DBHelper.KEY_TEACHER_ID + " = " + teacherID, null);
+        this.close();
+        if (deleted > 0)
+            return true;
+        else
+            return false;
     }
 }

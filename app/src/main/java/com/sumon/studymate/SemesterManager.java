@@ -70,7 +70,7 @@ public class SemesterManager {
     public ArrayList<SemesterModel> getAllSemester() {
         this.open();
         allSemester = new ArrayList<>();
-        cursor = database.query(DBHelper.TABLE_SEMESTER, null, null, null, null, null, null, null);
+        cursor = database.query(DBHelper.TABLE_SEMESTER, null, null, null, null, null, DBHelper.KEY_SEMESTER_ID + " ASC", null);
         cursor.moveToFirst();
         if (cursor != null && cursor.getCount() > 0) {
             for (int i = 0; i < cursor.getCount(); i++) {
@@ -112,8 +112,7 @@ public class SemesterManager {
 
         this.open();
         int deleted = database.delete(DBHelper.TABLE_SEMESTER, DBHelper.KEY_SEMESTER_ID + " = " + semesterListID, null);
-        new CourseManager(context).deleteCourseBySemesterID(semesterListID);
-        new TeacherManager(context).deleteTeacherBySemesterID(semesterListID);
+
         this.close();
 
         if (deleted > 0) {

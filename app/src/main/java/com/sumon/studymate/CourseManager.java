@@ -56,7 +56,7 @@ public class CourseManager {
     public ArrayList<CourseModel> getAllCourses() {
         this.open();
         allCourses = new ArrayList<>();
-        cursor = database.query(DBHelper.TABLE_COURSES, null, null, null, null, null, null, null);
+        cursor = database.query(DBHelper.TABLE_COURSES, null, null, null, null, null,  DBHelper.KEY_COURSE_ID + " DESC", null);
         cursor.moveToFirst();
         if (cursor != null && cursor.getCount() > 0) {
             for (int i = 0; i < cursor.getCount(); i++) {
@@ -89,7 +89,7 @@ public class CourseManager {
     public ArrayList<CourseModel> getAllCoursesBySemesterID(int semesterID) {
         this.open();
         allCourses = new ArrayList<>();
-        cursor = database.query(DBHelper.TABLE_COURSES, new String[]{DBHelper.KEY_COURSE_ID, DBHelper.KEY_COURSE_TITTLE, DBHelper.KEY_COURSE_CODE, DBHelper.KEY_COURSE_CREDIT, DBHelper.KEY_SEMESTER_ID, DBHelper.KEY_TEACHER_ID}, DBHelper.KEY_SEMESTER_ID + " = " + semesterID, null, null, null, null);
+        cursor = database.query(DBHelper.TABLE_COURSES, new String[]{DBHelper.KEY_COURSE_ID, DBHelper.KEY_COURSE_TITTLE, DBHelper.KEY_COURSE_CODE, DBHelper.KEY_COURSE_CREDIT, DBHelper.KEY_SEMESTER_ID, DBHelper.KEY_TEACHER_ID}, DBHelper.KEY_SEMESTER_ID + " = " + semesterID, null, null, null,  DBHelper.KEY_COURSE_ID + " DESC");
         cursor.moveToFirst();
         if (cursor != null && cursor.getCount() > 0) {
             for (int i = 0; i < cursor.getCount(); i++) {

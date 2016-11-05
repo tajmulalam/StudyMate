@@ -117,7 +117,6 @@ public class AdapterForClassTestList extends ArrayAdapter<ClassTestModel> implem
         holder.classTestDeleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                classTestID = classTestModelArrayList.get(position).getClassTestID();
                 MyAlert myAlert = new MyAlert();
                 myAlert.setWhichBtnClicked(whichBtnClicked);
                 myAlert.setTitle("Confirm Dialog");
