@@ -1,9 +1,13 @@
 package com.sumon.studymate;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -32,7 +36,7 @@ public class LauncherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
         setTitle("Home");
-        init();
+        AsyncTask task = new ProgressTask(this).execute();
     }
 
 
@@ -97,8 +101,8 @@ public class LauncherActivity extends AppCompatActivity {
         semesterManager = new SemesterManager(this);
         courseManager = new CourseManager(this);
         teacherManager = new TeacherManager(this);
-        assignmentManager=new AssignmentManager(this);
-        classTestManager=new ClassTestManager(this);
+        assignmentManager = new AssignmentManager(this);
+        classTestManager = new ClassTestManager(this);
 
         //fill arraylist
         allSemester = new ArrayList<>();
@@ -110,11 +114,11 @@ public class LauncherActivity extends AppCompatActivity {
         teacherList = new ArrayList<>();
         teacherList = teacherManager.getAllTeacher();
 
-        assignmentList=new ArrayList<>();
-        assignmentList=assignmentManager.getAllAssignment();
+        assignmentList = new ArrayList<>();
+        assignmentList = assignmentManager.getAllAssignment();
 
-        classTestList=new ArrayList<>();
-        classTestList=classTestManager.getAllClassTest();
+        classTestList = new ArrayList<>();
+        classTestList = classTestManager.getAllClassTest();
 
 
         semesterCountTV.setText(String.valueOf(allSemester.size()));
@@ -122,10 +126,18 @@ public class LauncherActivity extends AppCompatActivity {
         teacherCountTV.setText(String.valueOf(teacherList.size()));
         assignmentCountTV.setText(String.valueOf(assignmentList.size()));
         classTestCountTV.setText(String.valueOf(classTestList.size()));
+        if (new RoutineManager(this).getAllRoutine().size() > 0) {
+            routineCountTV.setText("Available");
+            routineCountTV.setTextColor(Color.BLACK);
+        } else {
+            routineCountTV.setText("Not Available");
+            routineCountTV.setTextColor(Color.RED);
+
+        }
     }
 
     private void goToRoutine() {
-
+        startActivity(new Intent(LauncherActivity.this, RoutineWizerdActivity.class));
     }
 
     private void goToTeacherList() {
@@ -152,4 +164,42 @@ public class LauncherActivity extends AppCompatActivity {
     private void goToSemesterList() {
         startActivity(new Intent(LauncherActivity.this, SemesterListActivity.class));
     }
+
+    public class ProgressTask extends AsyncTask<String, Void, Boolean> {
+
+        public ProgressTask(LauncherActivity activity) {
+            this.activity = activity;
+            dialog = new ProgressDialog(LauncherActivity.this);
+        }
+
+        /**
+         * progress dialog to show user that the backup is processing.
+         */
+        private ProgressDialog dialog;
+        /**
+         * application context.
+         */
+        private LauncherActivity activity;
+
+        protected void onPreExecute() {
+            this.dialog.setMessage("Please Wait...");
+            this.dialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
+
+        }
+
+        protected Boolean doInBackground(final String... args) {
+            init();
+
+            return false;
+        }
+    }
+
+
 }

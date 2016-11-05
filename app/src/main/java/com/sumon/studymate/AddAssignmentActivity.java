@@ -81,10 +81,10 @@ public class AddAssignmentActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     status_Active = 1;
-                    Toast.makeText(AddAssignmentActivity.this, String.valueOf(status_Active), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AddAssignmentActivity.this, String.valueOf(status_Active), Toast.LENGTH_SHORT).show();
                 } else {
                     status_Active = 0;
-                    Toast.makeText(AddAssignmentActivity.this, String.valueOf(status_Active), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AddAssignmentActivity.this, String.valueOf(status_Active), Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -149,12 +149,12 @@ public class AddAssignmentActivity extends AppCompatActivity {
         forCourseSpinnerAdapter = new AdapterForCourseSpinner(this, courseModelArrayList);
         courseListSpinnerAssignment.setAdapter(forCourseSpinnerAdapter);
         if (assignmentID != -1)
-            courseListSpinnerAssignment.setSelection(aAssignment.getCourseID() - 1);
+            courseListSpinnerAssignment.setSelection(getCourseIndexByID(aAssignment.getCourseID()));
 
         adapterForSemesterList = new AdapterForSemesterSpinner(this, semesterModelArrayList);
         semesterListSpinnerAssignment.setAdapter(adapterForSemesterList);
         if (assignmentID != -1)
-            semesterListSpinnerAssignment.setSelection(aAssignment.getSemesterID() - 1);
+            semesterListSpinnerAssignment.setSelection(getSemesterIndexByID(aAssignment.getSemesterID()));
         semesterListSpinnerAssignment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -388,5 +388,22 @@ public class AddAssignmentActivity extends AppCompatActivity {
             return true;
         else
             return false;
+    }
+
+
+    public int getSemesterIndexByID(int semesterID) {
+        for (SemesterModel _item : semesterModelArrayList) {
+            if (_item.getSemesterID() == semesterID)
+                return semesterModelArrayList.indexOf(_item);
+        }
+        return -1;
+    }
+
+    public int getCourseIndexByID(int courseID) {
+        for (CourseModel _item : courseModelArrayList) {
+            if (_item.getCourseID() == courseID)
+                return courseModelArrayList.indexOf(_item);
+        }
+        return -1;
     }
 }

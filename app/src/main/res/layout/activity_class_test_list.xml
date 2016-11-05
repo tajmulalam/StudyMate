@@ -4,20 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/bg_launcher"
-    tools:context="com.sumon.studymate.AssignmentListActivity">
+    android:fitsSystemWindows="true"
+    tools:context="com.sumon.studymate.ClassTestListActivity">
 
-
-    <ListView
-        android:padding="@dimen/five"
-        android:id="@+id/classTestListView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="2"
-        android:columnWidth="@dimen/two_hundred"
-        />
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/ten"
+        android:paddingRight="@dimen/ten"
+        android:paddingTop="@dimen/five">
+        <!-- Editext for Search -->
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/five"
+            android:layout_marginTop="@dimen/five"
+            android:padding="@dimen/ten"
+            app:cardCornerRadius="@dimen/ten">
 
+            <EditText
+                android:id="@+id/inputSearchClassTestET"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Search Assignment..."
+                android:inputType="textVisiblePassword"
+                android:padding="@dimen/twinty" />
+        </android.support.v7.widget.CardView>
+
+        <ListView
+            android:id="@+id/classTestListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnWidth="@dimen/two_hundred"
+            android:numColumns="2"
+            android:padding="@dimen/five" />
+
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabNewClassTest"

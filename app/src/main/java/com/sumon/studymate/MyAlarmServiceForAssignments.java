@@ -75,9 +75,8 @@ public class MyAlarmServiceForAssignments extends Service {
                         .setSmallIcon(android.R.drawable.ic_menu_my_calendar)
                         .setContentTitle(title)
                         .setContentText(msg)
-                        .setTicker(msg)
+                        .setTicker(msg);
 
-                        .setOngoing(true);
 
 
 

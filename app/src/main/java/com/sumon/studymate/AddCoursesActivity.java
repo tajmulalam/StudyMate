@@ -58,8 +58,8 @@ public class AddCoursesActivity extends AppCompatActivity {
 
 
         newTeacherLnLayout = (LinearLayout) findViewById(R.id.newTeacherLnLayout);
-        semesterModelArrayList=new ArrayList<>();
-        teacherListActivityArrayList=new ArrayList<>();
+        semesterModelArrayList = new ArrayList<>();
+        teacherListActivityArrayList = new ArrayList<>();
         semesterManager = new SemesterManager(this);
         semesterModelArrayList = semesterManager.getAllSemester();
         teacherManager = new TeacherManager(this);
@@ -88,11 +88,11 @@ public class AddCoursesActivity extends AppCompatActivity {
 
             adapterForTeacherSpinner = new AdapterForTeacherSpinner(this, teacherListActivityArrayList);
             teacherListSpinner.setAdapter(adapterForTeacherSpinner);
-            teacherListSpinner.setSelection(aCourse.getCourseTeacherID() - 1);
+            teacherListSpinner.setSelection(getTeacherIndexByID(aCourse.getCourseTeacherID()));
 
             adapterForSemesterList = new AdapterForSemesterSpinner(this, semesterModelArrayList);
             semesterListSpinner.setAdapter(adapterForSemesterList);
-            semesterListSpinner.setSelection(aCourse.getCourseSemesterID() - 1);
+            semesterListSpinner.setSelection(getSemesterIndexByID(aCourse.getCourseSemesterID()));
 
         } else {
             setTitle("Add New Course");
@@ -192,6 +192,22 @@ public class AddCoursesActivity extends AppCompatActivity {
             CustomToast.FailToast(AddCoursesActivity.this, "Please Fill The Information Properly");
 
 
+    }
+
+    public int getSemesterIndexByID(int semesterID) {
+        for (SemesterModel _item : semesterModelArrayList) {
+            if (_item.getSemesterID() == semesterID)
+                return semesterModelArrayList.indexOf(_item);
+        }
+        return -1;
+    }
+
+    public int getTeacherIndexByID(int teacherID) {
+        for (TeacherModel _item : teacherListActivityArrayList) {
+            if (_item.getTeacherID() == teacherID)
+                return teacherListActivityArrayList.indexOf(_item);
+        }
+        return -1;
     }
 
     private void resetFieldDate() {

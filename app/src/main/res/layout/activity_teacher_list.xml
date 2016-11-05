@@ -4,25 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/bg_launcher"
+    android:fitsSystemWindows="true"
     tools:context="com.sumon.studymate.TeacherListActivity">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        >
+        android:paddingLeft="@dimen/ten"
+        android:paddingRight="@dimen/ten"
+        android:paddingTop="@dimen/five">
 
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/five"
+            android:layout_marginTop="@dimen/five"
+            android:padding="@dimen/ten"
+            app:cardCornerRadius="@dimen/ten">
+
+            <EditText
+                android:id="@+id/inputSearchForTeacherET"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Search teacher..."
+                android:inputType="textVisiblePassword"
+                android:padding="@dimen/twinty" />
+        </android.support.v7.widget.CardView>
         <ListView
-            android:paddingTop="@dimen/five"
-            android:paddingLeft="@dimen/ten"
-            android:paddingRight="@dimen/ten"
             android:id="@+id/teacherListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:horizontalSpacing="@dimen/ten"
             android:numColumns="2"
+            android:paddingLeft="@dimen/ten"
+            android:paddingRight="@dimen/ten"
+            android:paddingTop="@dimen/five"
             android:verticalSpacing="@dimen/ten" />
 
 
@@ -35,11 +55,11 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:background="@drawable/fab_color"
-        app:srcCompat="@mipmap/ic_white_plus"
-        app:fabSize="normal"
         app:backgroundTint="@color/colorPrimary"
-        app:rippleColor="@android:color/white"
         app:borderWidth="0dp"
         app:elevation="2dp"
-        app:pressedTranslationZ="12dp"/>
+        app:fabSize="normal"
+        app:pressedTranslationZ="12dp"
+        app:rippleColor="@android:color/white"
+        app:srcCompat="@mipmap/ic_white_plus" />
 </android.support.design.widget.CoordinatorLayout>

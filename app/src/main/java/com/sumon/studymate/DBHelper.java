@@ -21,6 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
     static final String TABLE_TEACHER = "teacherTable";
     static final String TABLE_ASSIGNMENT = "assignmentTable";
     static final String TABLE_CLASS_TEST = "classTestTable";
+    static final String TABLE_ROUTINE= "routineTable";
 
 
     //SEMESTER TABLES COLUMNS
@@ -57,6 +58,15 @@ public class DBHelper extends SQLiteOpenHelper {
     static final String KEY_TEST_TOPIC = "class_test_topic";
     static final String KEY_CLASS_TEST_STATUS = "class_test_status";
 
+    ///// Routine TABLE COLUMNS
+    static final String KEY_ROUTINE_ID = "routine_id";
+    static final String KEY_DAY = "day";
+    static final String KEY_START_TIME = "class_start_time";
+    static final String KEY_END_TIME = "class_end_time";
+    static final String KEY_PERIOD = "class_period";
+
+
+
     // SEMESTER table create statement
     private static final String CREATE_TABLE_SEMESTER = "CREATE TABLE " + TABLE_SEMESTER
             + "(" + KEY_SEMESTER_ID + " INTEGER PRIMARY KEY," + KEY_SEMESTER_TITLE + " TEXT,"
@@ -88,6 +98,13 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
 
+    // ROUTINE table create statement
+    private static final String CREATE_TABLE_CLASS_ROUTINE= "CREATE TABLE "
+            + TABLE_ROUTINE + "(" + KEY_ROUTINE_ID + " INTEGER PRIMARY KEY," + KEY_DAY
+            + " TEXT," + KEY_START_TIME + " DATETIME," + KEY_END_TIME + " DATETIME,"+ KEY_PERIOD + " TEXT," + KEY_SEMESTER_ID + " INTEGER," + KEY_COURSE_ID + " INTEGER," + KEY_TEACHER_ID + " INTEGER,"+ " FOREIGN KEY( " + KEY_SEMESTER_ID + " ) REFERENCES " + TABLE_SEMESTER + " ( " + KEY_SEMESTER_ID + " ) ON DELETE CASCADE," + " FOREIGN KEY( " + KEY_COURSE_ID + " )REFERENCES " + TABLE_COURSES + " ( " + KEY_COURSE_ID + " ) ON DELETE CASCADE, "+ " FOREIGN KEY( " + KEY_TEACHER_ID + " )REFERENCES " + TABLE_TEACHER + " ( " + KEY_TEACHER_ID + " ) ON DELETE CASCADE " + ")";
+
+
+
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -101,6 +118,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_TEACHER);
         db.execSQL(CREATE_TABLE_ASSIGNMENT);
         db.execSQL(CREATE_TABLE_CLASS_TEST);
+        db.execSQL(CREATE_TABLE_CLASS_ROUTINE);
 
     }
 
@@ -126,6 +144,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TEACHER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ASSIGNMENT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CLASS_TEST);
+        db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_CLASS_ROUTINE);
 
 
         // create new tables

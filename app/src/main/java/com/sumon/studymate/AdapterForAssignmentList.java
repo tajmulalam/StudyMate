@@ -157,5 +157,28 @@ public class AdapterForAssignmentList extends ArrayAdapter<AssignmentModel> impl
         Date date = new Date();
         return dateFormat.format(date);
     }
+
+
+    // Filter Class
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        assignmentArrayList.clear();
+        if (charText.length() == 0) {
+
+            assignmentArrayList.addAll(new AssignmentManager(context).getAllAssignment());
+        }
+        else
+        {
+
+            for (AssignmentModel aAssignment : new AssignmentManager(context).getAllAssignment())
+            {
+                if (aAssignment.getTopic().toLowerCase(Locale.getDefault()).contains(charText)||aAssignment.getSubmitDate().toLowerCase(Locale.getDefault()).contains(charText)||new SemesterManager(context).getSemesterByID(aAssignment.getSemesterID()).getSemesterTitle().toLowerCase(Locale.getDefault()).contains(charText)||new CourseManager(context).getCourseByID(aAssignment.getCourseID()).getCourseTitle().toLowerCase(Locale.getDefault()).contains(charText))
+                {
+                    assignmentArrayList.add(aAssignment);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
 }
 

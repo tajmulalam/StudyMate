@@ -4,11 +4,15 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class TeacherListActivity extends AppCompatActivity {
 
@@ -16,6 +20,7 @@ public class TeacherListActivity extends AppCompatActivity {
     private ArrayList<TeacherModel> teacherlist;
     private ListView teacherListView;
     private AdapterForTeacherList adapterForTeacherList;
+    private EditText inputSearchForTeacherET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,7 @@ public class TeacherListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_teacher_list);
         setTitle("Teacher List");
         teacherListView = (ListView) findViewById(R.id.teacherListView);
+        inputSearchForTeacherET = (EditText) findViewById(R.id.inputSearchForTeacherET);
         teacherManager = new TeacherManager(this);
         teacherlist = new ArrayList<>();
         teacherlist = teacherManager.getAllTeacher();
@@ -40,10 +46,29 @@ public class TeacherListActivity extends AppCompatActivity {
                 goToAddTeacher();
             }
         });
+        inputSearchForTeacherET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = inputSearchForTeacherET.getText().toString().toLowerCase(Locale.getDefault());
+                adapterForTeacherList.filter(text);
+            }
+        });
     }
 
     private void goToAddTeacher() {
         startActivity(new Intent(TeacherListActivity.this, AddTeacherActivity.class));
         finish();
     }
+
+
 }

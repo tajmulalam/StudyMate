@@ -26,4 +26,7 @@
     <string name="topic">Topic</string>
     <string name="assignment">You Have A Assignment Today</string>
     <string name="classtest">You Have a Class Test Today</string>
+    <string name="startTime">Start Time</string>
+    <string name="endTime">End Time</string>
+    <string name="period">Period</string>
 </resources>

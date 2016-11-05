@@ -4,10 +4,14 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ClassTestListActivity extends AppCompatActivity {
 
@@ -15,6 +19,7 @@ public class ClassTestListActivity extends AppCompatActivity {
     private ClassTestManager classTestManager;
     private ArrayList<ClassTestModel> classTestModelArrayList;
     private AdapterForClassTestList adapterForClassTestList;
+    private EditText inputSearchClassTestET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,7 @@ public class ClassTestListActivity extends AppCompatActivity {
         setTitle("Class Test List");
 
         classTestListView = (ListView) findViewById(R.id.classTestListView);
+        inputSearchClassTestET= (EditText) findViewById(R.id.inputSearchClassTestET);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabNewClassTest);
 
@@ -34,7 +40,23 @@ public class ClassTestListActivity extends AppCompatActivity {
                 goToAddAssignment();
             }
         });
+        inputSearchClassTestET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = inputSearchClassTestET.getText().toString().toLowerCase(Locale.getDefault());
+                adapterForClassTestList.filter(text);
+            }
+        });
 
     }
 

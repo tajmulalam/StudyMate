@@ -156,5 +156,29 @@ public class AdapterForClassTestList extends ArrayAdapter<ClassTestModel> implem
         Date date = new Date();
         return dateFormat.format(date);
     }
+
+
+    // Filter Class
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        classTestModelArrayList.clear();
+        if (charText.length() == 0) {
+
+            classTestModelArrayList.addAll(new ClassTestManager(context).getAllClassTest());
+        }
+        else
+        {
+
+            for (ClassTestModel aClassTest : new ClassTestManager(context).getAllClassTest())
+            {
+                if (aClassTest.getClassTestTopic().toLowerCase(Locale.getDefault()).contains(charText)||aClassTest.getTestDate().toLowerCase(Locale.getDefault()).contains(charText)||new SemesterManager(context).getSemesterByID(aClassTest.getSemesterID()).getSemesterTitle().toLowerCase(Locale.getDefault()).contains(charText)||new CourseManager(context).getCourseByID(aClassTest.getCourseID()).getCourseTitle().toLowerCase(Locale.getDefault()).contains(charText))
+                {
+                    classTestModelArrayList.add(aClassTest);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
 }
 

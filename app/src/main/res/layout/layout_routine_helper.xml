@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="@dimen/five"
+    android:paddingLeft="@dimen/twinty"
+    android:paddingRight="@dimen/twinty"
+    android:paddingTop="@dimen/ten"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_bg"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Choose Course"
+                android:textSize="@dimen/eighteensp" />
+
+            <Spinner
+                android:id="@+id/courseListSpinnerRoutine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/selectTeacherSpinnerLayoutLn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_bg"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="Day "
+                android:textSize="@dimen/eighteensp" />
+
+            <EditText
+                android:id="@+id/dayET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/statTimeET"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_weight=".80"
+                android:background="@drawable/ic_bg"
+                android:enabled="false"
+                android:gravity="left"
+                android:hint="@string/startTime"
+                android:inputType="time"
+                android:padding="@dimen/ten"
+                android:textColor="@android:color/black" />
+
+            <ImageButton
+                android:id="@+id/starTimePicRoutineIBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight=".20"
+                android:background="@drawable/ic_bg"
+                android:padding="5dp"
+                android:src="@mipmap/ic_datepicker" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/endTimeET"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_weight=".80"
+                android:background="@drawable/ic_bg"
+                android:enabled="false"
+                android:gravity="left"
+                android:hint="@string/endTime"
+                android:inputType="time"
+                android:padding="@dimen/ten"
+                android:textColor="@android:color/black" />
+
+            <ImageButton
+                android:id="@+id/endTImePicRoutineIBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight=".20"
+                android:background="@drawable/ic_bg"
+                android:padding="5dp"
+                android:src="@mipmap/ic_datepicker" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/periodET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ten"
+            android:background="@drawable/ic_text_bg_badge"
+            android:gravity="left"
+            android:hint="@string/period"
+            android:padding="@dimen/ten"
+            android:inputType="number"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/ic_bg"
+                android:onClick="resetDataRoutine"
+                android:text="Reset" />
+
+            <Button
+                android:id="@+id/btnAddRoutine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/ic_bg"
+                android:onClick="next"
+                android:text="Add" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

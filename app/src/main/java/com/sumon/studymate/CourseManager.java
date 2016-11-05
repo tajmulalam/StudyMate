@@ -126,7 +126,7 @@ public class CourseManager {
 
     public CourseModel getCourseByID(int courseId) {
         this.open();
-        cursor = database.query(DBHelper.TABLE_COURSES, new String[]{DBHelper.KEY_COURSE_ID, DBHelper.KEY_COURSE_TITTLE, DBHelper.KEY_COURSE_CODE, DBHelper.KEY_COURSE_CREDIT, DBHelper.KEY_SEMESTER_ID, DBHelper.KEY_TEACHER_ID}, DBHelper.KEY_SEMESTER_ID + " = " + courseId, null, null, null, null);
+        cursor = database.query(DBHelper.TABLE_COURSES, new String[]{DBHelper.KEY_COURSE_ID, DBHelper.KEY_COURSE_TITTLE, DBHelper.KEY_COURSE_CODE, DBHelper.KEY_COURSE_CREDIT, DBHelper.KEY_SEMESTER_ID, DBHelper.KEY_TEACHER_ID}, DBHelper.KEY_COURSE_ID + " = " + courseId, null, null, null, null);
 
         if (cursor != null && cursor.moveToFirst()) {
             int courseID = cursor.getInt(cursor.getColumnIndex(DBHelper.KEY_COURSE_ID));

@@ -22,4 +22,5 @@
     <dimen name="thirty">30dp</dimen>
     <dimen name="thirtyFive">35dp</dimen>
     <dimen name="thirtySp">30sp</dimen>
+    <dimen name="eighty">80dp</dimen>
 </resources>

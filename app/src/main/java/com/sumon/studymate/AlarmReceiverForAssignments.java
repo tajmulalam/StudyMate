@@ -14,12 +14,12 @@ public class AlarmReceiverForAssignments extends BroadcastReceiver {
     private  Context context;
     @Override
     public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, "Alarm fired", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, "Alarm fired", Toast.LENGTH_SHORT).show();
 
         Intent service1 = new Intent(context, MyAlarmServiceForAssignments.class);
 
         context.startService(service1);
-        Toast.makeText(context, "Service fired", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, "Service fired", Toast.LENGTH_SHORT).show();
     }
 
 }

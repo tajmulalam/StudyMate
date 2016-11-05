@@ -15,21 +15,21 @@ public class AddTeacherActivity extends AppCompatActivity {
     private TeacherManager teacherManager;
     private TeacherModel aTeacher;
     private EditText teacherNameET, teacherDesignationET, teacherMobileET, teacherEmailET;
-    private Button btnAddTeacher,btnUpdateTeacher;
+    private Button btnAddTeacher, btnUpdateTeacher;
     private Button resetBtn;
     private AdapterForSemesterSpinner adapterForSemesterSpinner;
     private ArrayList<SemesterModel> semesterList;
     private SemesterManager semesterManager;
     private Spinner semesterListSpinnerForTeacher;
     private int semesterID;
-    private int teacherID=-1;
+    private int teacherID = -1;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_teacher);
-        teacherID=getIntent().getIntExtra("teacherID",0);
+        teacherID = getIntent().getIntExtra("teacherID", 0);
         init();
 
     }
@@ -45,20 +45,20 @@ public class AddTeacherActivity extends AppCompatActivity {
         resetBtn = (Button) findViewById(R.id.resetBtn);
         semesterListSpinnerForTeacher = (Spinner) findViewById(R.id.semesterListSpinnerForTeacher);
 
-        if (teacherID != -1 && teacherID != 0){
+        if (teacherID != -1 && teacherID != 0) {
             setTitle("Update Teacher");
             btnUpdateTeacher.setVisibility(View.VISIBLE);
             btnAddTeacher.setVisibility(View.GONE);
-            teacherManager=new TeacherManager(this);
-            aTeacher=teacherManager.getTeacherByID(teacherID);
+            teacherManager = new TeacherManager(this);
+            aTeacher = teacherManager.getTeacherByID(teacherID);
 
             semesterManager = new SemesterManager(this);
             semesterList = semesterManager.getAllSemester();
             adapterForSemesterSpinner = new AdapterForSemesterSpinner(this, semesterList);
             semesterListSpinnerForTeacher.setAdapter(adapterForSemesterSpinner);
-            semesterListSpinnerForTeacher.setSelection(aTeacher.getSemesterID()-1);
+            semesterListSpinnerForTeacher.setSelection(getSemesterIndexByID(aTeacher.getSemesterID()));
             fillData();
-        }else {
+        } else {
             setTitle("Add New Teacher");
             btnUpdateTeacher.setVisibility(View.GONE);
             btnAddTeacher.setVisibility(View.VISIBLE);
@@ -67,9 +67,6 @@ public class AddTeacherActivity extends AppCompatActivity {
             adapterForSemesterSpinner = new AdapterForSemesterSpinner(this, semesterList);
             semesterListSpinnerForTeacher.setAdapter(adapterForSemesterSpinner);
         }
-
-
-
 
 
         semesterListSpinnerForTeacher.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -115,8 +112,8 @@ public class AddTeacherActivity extends AppCompatActivity {
         String mobile = teacherMobileET.getText().toString();
         String email = teacherEmailET.getText().toString();
         if (name.length() > 0 && designation.length() > 0 && mobile.length() > 0 && email.length() > 0) {
-            aTeacher = new TeacherModel(name, designation, mobile, email,semesterID);
-            boolean isUpdated = teacherManager.editTeacher(teacherID,aTeacher);
+            aTeacher = new TeacherModel(name, designation, mobile, email, semesterID);
+            boolean isUpdated = teacherManager.editTeacher(teacherID, aTeacher);
             if (isUpdated) {
                 CustomToast.SuccessToast(this, "Teacher Information successfully Updated");
                 startActivity(new Intent(AddTeacherActivity.this, TeacherListActivity.class));
@@ -124,7 +121,6 @@ public class AddTeacherActivity extends AppCompatActivity {
                 CustomToast.FailToast(this, "Please Input Valid Information");
 
         }
-
 
 
     }
@@ -144,7 +140,7 @@ public class AddTeacherActivity extends AppCompatActivity {
         String mobile = teacherMobileET.getText().toString();
         String email = teacherEmailET.getText().toString();
         if (name.length() > 0 && designation.length() > 0 && mobile.length() > 0 && email.length() > 0) {
-            aTeacher = new TeacherModel(name, designation, mobile, email,semesterID);
+            aTeacher = new TeacherModel(name, designation, mobile, email, semesterID);
             boolean isInserted = teacherManager.addNewTeacher(aTeacher);
             if (isInserted) {
                 CustomToast.SuccessToast(this, "Teacher Information successfully added");
@@ -163,4 +159,13 @@ public class AddTeacherActivity extends AppCompatActivity {
         teacherMobileET.getText().clear();
         teacherEmailET.getText().clear();
     }
+
+    public int getSemesterIndexByID(int semesterID) {
+        for (SemesterModel _item : semesterList) {
+            if (_item.getSemesterID() == semesterID)
+                return semesterList.indexOf(_item);
+        }
+        return -1;
+    }
+
 }

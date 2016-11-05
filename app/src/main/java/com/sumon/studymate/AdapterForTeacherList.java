@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by Md Tajmul Alam Sumon on 10/28/2016.
@@ -148,6 +149,25 @@ public class AdapterForTeacherList extends ArrayAdapter<TeacherModel> implements
     @Override
     public void cancelkBtnClicked(boolean isCancel) {
 
+    }
+
+
+    // Filter Class
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        teacherList.clear();
+        if (charText.length() == 0) {
+
+            teacherList.addAll(new TeacherManager(context).getAllTeacher());
+        } else {
+
+            for (TeacherModel aTeacher : new TeacherManager(context).getAllTeacher()) {
+                if (aTeacher.getTeacherName().toLowerCase(Locale.getDefault()).contains(charText) || aTeacher.getTeacherDesignation().toLowerCase(Locale.getDefault()).contains(charText) || aTeacher.getTeacherMobile().toLowerCase(Locale.getDefault()).contains(charText) || aTeacher.getTeacherEmail().toLowerCase(Locale.getDefault()).contains(charText) || new SemesterManager(context).getSemesterByID(aTeacher.getSemesterID()).getSemesterTitle().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    teacherList.add(aTeacher);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }
 

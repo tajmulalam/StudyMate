@@ -82,10 +82,10 @@ public class AddClassTestActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     status_Active = 1;
-                    Toast.makeText(AddClassTestActivity.this, String.valueOf(status_Active), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AddClassTestActivity.this, String.valueOf(status_Active), Toast.LENGTH_SHORT).show();
                 } else {
                     status_Active = 0;
-                    Toast.makeText(AddClassTestActivity.this, String.valueOf(status_Active), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AddClassTestActivity.this, String.valueOf(status_Active), Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -150,12 +150,13 @@ public class AddClassTestActivity extends AppCompatActivity {
         forCourseSpinnerAdapter = new AdapterForCourseSpinner(this, courseModelArrayList);
         courseListSpinnerClassTest.setAdapter(forCourseSpinnerAdapter);
         if (classTestID != -1)
-            courseListSpinnerClassTest.setSelection(aClassTest.getCourseID() - 1);
+            courseListSpinnerClassTest.setSelection(getCourseIndexByID(aClassTest.getCourseID()));
 
         adapterForSemesterList = new AdapterForSemesterSpinner(this, semesterModelArrayList);
         semesterListSpinnerClassTest.setAdapter(adapterForSemesterList);
         if (classTestID != -1)
-            semesterListSpinnerClassTest.setSelection(aClassTest.getSemesterID() - 1);
+            semesterListSpinnerClassTest.setSelection(getSemesterIndexByID(aClassTest.getSemesterID()));
+
         semesterListSpinnerClassTest.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -402,5 +403,22 @@ public class AddClassTestActivity extends AppCompatActivity {
         classTestDateET.getText().clear();
         classTestTopicET.getText().clear();
         classTestremindCheckBox.setChecked(false);
+    }
+
+
+    public int getSemesterIndexByID(int semesterID) {
+        for (SemesterModel _item : semesterModelArrayList) {
+            if (_item.getSemesterID() == semesterID)
+                return semesterModelArrayList.indexOf(_item);
+        }
+        return -1;
+    }
+
+    public int getCourseIndexByID(int courseID) {
+        for (CourseModel _item : courseModelArrayList) {
+            if (_item.getCourseID() == courseID)
+                return courseModelArrayList.indexOf(_item);
+        }
+        return -1;
     }
 }

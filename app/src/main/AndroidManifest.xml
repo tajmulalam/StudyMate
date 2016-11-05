@@ -7,7 +7,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_app_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -20,29 +20,35 @@
         </activity>
         <activity
             android:name=".AddSemesterActivity"
-            android:parentActivityName=".SemesterListActivity" />
+            android:parentActivityName=".SemesterListActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".AddCoursesActivity"
-            android:parentActivityName=".CourseListActivity" />
+            android:parentActivityName=".CourseListActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".SemesterListActivity"
             android:parentActivityName=".LauncherActivity" />
         <activity
             android:name=".TeacherListActivity"
-            android:parentActivityName=".LauncherActivity" />
+            android:parentActivityName=".LauncherActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".AddTeacherActivity"
-            android:parentActivityName=".TeacherListActivity" />
+            android:parentActivityName=".TeacherListActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".CourseListActivity"
             android:parentActivityName=".LauncherActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".AddAssignmentActivity"
-            android:parentActivityName=".AssignmentListActivity" />
+            android:parentActivityName=".AssignmentListActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".AssignmentListActivity"
-            android:parentActivityName=".LauncherActivity" />
+            android:parentActivityName=".LauncherActivity"
+            android:windowSoftInputMode="stateHidden" />
 
         <receiver
             android:name=".AlarmReceiverForClassTest"
@@ -60,16 +66,28 @@
 
         <activity
             android:name=".AddClassTestActivity"
-            android:parentActivityName=".ClassTestListActivity" />
+            android:parentActivityName=".ClassTestListActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ClassTestListActivity"
-            android:parentActivityName=".LauncherActivity" />
+            android:parentActivityName=".LauncherActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ClassTestNotificationActivity"
             android:parentActivityName=".LauncherActivity" />
         <activity
             android:name=".AssignmentsNotificationActivity"
-            android:parentActivityName=".LauncherActivity"></activity>
+            android:parentActivityName=".LauncherActivity" />
+        <activity
+            android:name=".RoutineWizerdActivity"
+            android:parentActivityName=".LauncherActivity" />
+        <activity
+            android:name=".RoutineInfoListActivity"
+            android:parentActivityName=".LauncherActivity" />
+        <activity
+            android:name=".AddRoutineActivity"
+            android:parentActivityName="RoutineInfoListActivity"
+            android:windowSoftInputMode="stateHidden"></activity>
     </application>
 
 </manifest>
