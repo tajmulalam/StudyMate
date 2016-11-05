@@ -7,11 +7,11 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_app_icon"
+        android:icon="@mipmap/ic_app_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LauncherActivity">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -86,8 +86,9 @@
             android:parentActivityName=".LauncherActivity" />
         <activity
             android:name=".AddRoutineActivity"
-            android:parentActivityName="RoutineInfoListActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:parentActivityName=".RoutineInfoListActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".LauncherActivity"></activity>
     </application>
 
 </manifest>

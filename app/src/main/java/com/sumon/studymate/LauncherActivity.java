@@ -196,7 +196,6 @@ public class LauncherActivity extends AppCompatActivity {
 
         protected Boolean doInBackground(final String... args) {
             init();
-
             return false;
         }
     }
