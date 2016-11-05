@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class CourseListActivity extends AppCompatActivity {
     private ListView coursesListView;
@@ -25,7 +26,7 @@ public class CourseListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_course_list);
         setTitle("Course List");
         coursesListView = (ListView) findViewById(R.id.coursesListView);
-        inputSearchET= (EditText) findViewById(R.id.inputSearchET);
+        inputSearchET = (EditText) findViewById(R.id.inputSearchET);
 
         fillAdapter();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAddCourse);
@@ -40,7 +41,6 @@ public class CourseListActivity extends AppCompatActivity {
         inputSearchET.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                CourseListActivity.this.adapterForCourseList.getFilter().filter(s);
             }
 
             @Override
@@ -50,6 +50,8 @@ public class CourseListActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                String text = inputSearchET.getText().toString().toLowerCase(Locale.getDefault());
+                adapterForCourseList.filter(text);
 
             }
         });
@@ -57,7 +59,7 @@ public class CourseListActivity extends AppCompatActivity {
 
     private void fillAdapter() {
         courseManager = new CourseManager(this);
-        allCourses=new ArrayList<>();
+        allCourses = new ArrayList<>();
         allCourses = courseManager.getAllCourses();
         adapterForCourseList = new AdapterForCourseList(this, allCourses);
         adapterForCourseList.setFragmentManager(getFragmentManager());

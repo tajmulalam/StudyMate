@@ -14,12 +14,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by Md Tajmul Alam Sumon on 10/28/2016.
  */
 
-public class AdapterForCourseList extends ArrayAdapter<CourseModel> implements MyAlert.WhichBtnClicked, Filterable {
+public class AdapterForCourseList extends ArrayAdapter<CourseModel> implements MyAlert.WhichBtnClicked{
     private Context context;
     private ArrayList<CourseModel> courseList;
     private LayoutInflater inflter;
@@ -57,23 +58,6 @@ public class AdapterForCourseList extends ArrayAdapter<CourseModel> implements M
     }
 
 
-    @NonNull
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-                FilterResults filterResults = new FilterResults();
-
-                return filterResults;
-            }
-
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-
-            }
-        };
-    }
 
     static class ViewHolder {
 
@@ -155,6 +139,29 @@ public class AdapterForCourseList extends ArrayAdapter<CourseModel> implements M
     @Override
     public void cancelkBtnClicked(boolean isCancel) {
 
+    }
+
+
+    // Filter Class
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        courseList.clear();
+        if (charText.length() == 0) {
+
+            courseList.addAll(new CourseManager(context).getAllCourses());
+        }
+        else
+        {
+
+            for (CourseModel course : new CourseManager(context).getAllCourses())
+            {
+                if (course.getCourseTitle().toLowerCase(Locale.getDefault()).contains(charText)||course.getCourseCode().toLowerCase(Locale.getDefault()).contains(charText)||course.getCourseCredit().toLowerCase(Locale.getDefault()).contains(charText)||new SemesterManager(context).getSemesterByID(course.getCourseSemesterID()).getSemesterTitle().toLowerCase(Locale.getDefault()).contains(charText))
+                {
+                    courseList.add(course);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }
 
