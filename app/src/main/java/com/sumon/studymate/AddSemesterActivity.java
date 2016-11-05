@@ -42,7 +42,7 @@ public class AddSemesterActivity extends AppCompatActivity {
 
     //  initialization view components
     private void init() {
-        setTitle("Semester List");
+
         datePicImageBtn = (ImageButton) findViewById(R.id.datePicImageBtn);
         datePicImageBtn2 = (ImageButton) findViewById(R.id.datePicImageBtn2);
         startDateET = (EditText) findViewById(R.id.startDateET);
