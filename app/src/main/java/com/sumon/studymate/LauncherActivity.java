@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,7 +12,13 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 
 public class LauncherActivity extends AppCompatActivity {
@@ -187,4 +194,61 @@ public class LauncherActivity extends AppCompatActivity {
     }
 
 
+    public void exportDB(View view) {
+
+        String db_name=DBHelper.DATABASE_NAME;
+        File sd = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) +
+                File.separator + "StudyMate"+
+                File.separator );
+
+        boolean success = true;
+        if (!sd.exists()) {
+            success = sd.mkdir();
+        }
+        if (success) {
+
+            File data = Environment.getDataDirectory();
+            FileChannel source=null;
+            FileChannel destination=null;
+            String currentDBPath = "/data/"+ this.getPackageName() +"/databases/"+db_name;
+            String backupDBPath = db_name;
+            File currentDB = new File(data, currentDBPath);
+            File backupDB = new File(sd, backupDBPath);
+            try {
+                source = new FileInputStream(currentDB).getChannel();
+                destination = new FileOutputStream(backupDB).getChannel();
+                destination.transferFrom(source, 0, source.size());
+                source.close();
+                destination.close();
+                Toast.makeText(this, "Please wait", Toast.LENGTH_SHORT).show();
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void importDB(View view) {
+        String db_name=DBHelper.DATABASE_NAME;
+
+        File sd = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) +
+                File.separator + "Your Backup Folder"+
+                File.separator );
+        File data = Environment.getDataDirectory();
+        FileChannel source=null;
+        FileChannel destination=null;
+        String backupDBPath = "/data/"+ this.getPackageName() +"/databases/"+db_name;
+        String currentDBPath = db_name;
+        File currentDB = new File(sd, currentDBPath);
+        File backupDB = new File(data, backupDBPath);
+        try {
+            source = new FileInputStream(currentDB).getChannel();
+            destination = new FileOutputStream(backupDB).getChannel();
+            destination.transferFrom(source, 0, source.size());
+            source.close();
+            destination.close();
+            Toast.makeText(this, "Please wait", Toast.LENGTH_SHORT).show();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
