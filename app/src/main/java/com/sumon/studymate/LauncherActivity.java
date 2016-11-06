@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -30,17 +31,27 @@ public class LauncherActivity extends AppCompatActivity {
     private ArrayList<AssignmentModel> assignmentList;
     private ClassTestManager classTestManager;
     private ArrayList<ClassTestModel> classTestList;
+    private ProgressDialog dialog;
+    private int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
-        setTitle("Home");
-        AsyncTask task = new ProgressTask(this).execute();
+        setTitle("Study Mate");
+        count = getIntent().getIntExtra("count", 0);
+        if (count != 0)
+            dialog = new ProgressDialog(LauncherActivity.this);
+        init();
+
     }
 
 
     private void init() {
+        if (count != 0) {
+            this.dialog.setMessage("Please Wait...");
+            this.dialog.show();
+        }
         semesterDashboardCardView = (CardView) findViewById(R.id.semesterDashboardCardView);
         courseDashboardCardView = (CardView) findViewById(R.id.courseDashboardCardView);
         assignmentDashboardCardView = (CardView) findViewById(R.id.assignmentDashboardCardView);
@@ -53,8 +64,18 @@ public class LauncherActivity extends AppCompatActivity {
         assignmentCountTV = (TextView) findViewById(R.id.assignmentCountTV);
         teacherCountTV = (TextView) findViewById(R.id.teacherCountTV);
         routineCountTV = (TextView) findViewById(R.id.routineCountTV);
-        initManagers();
 
+        initManagers();
+        if (count != 0) {
+            if (dialog.isShowing()) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.dismiss();
+                    }
+                }, 2000);
+            }
+        }
         semesterDashboardCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,41 +184,6 @@ public class LauncherActivity extends AppCompatActivity {
 
     private void goToSemesterList() {
         startActivity(new Intent(LauncherActivity.this, SemesterListActivity.class));
-    }
-
-    public class ProgressTask extends AsyncTask<String, Void, Boolean> {
-
-        public ProgressTask(LauncherActivity activity) {
-            this.activity = activity;
-            dialog = new ProgressDialog(LauncherActivity.this);
-        }
-
-        /**
-         * progress dialog to show user that the backup is processing.
-         */
-        private ProgressDialog dialog;
-        /**
-         * application context.
-         */
-        private LauncherActivity activity;
-
-        protected void onPreExecute() {
-            this.dialog.setMessage("Please Wait...");
-            this.dialog.show();
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            if (dialog.isShowing()) {
-                dialog.dismiss();
-            }
-
-        }
-
-        protected Boolean doInBackground(final String... args) {
-            init();
-            return false;
-        }
     }
 
 

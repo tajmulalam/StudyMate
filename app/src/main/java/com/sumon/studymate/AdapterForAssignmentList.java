@@ -62,7 +62,7 @@ public class AdapterForAssignmentList extends ArrayAdapter<AssignmentModel> impl
 
     static class ViewHolder {
 
-        TextView assignmentNameTV, submitDateTV, statusTV;
+        TextView assignmentNameTV, submitDateTV, statusTV,semesterAssignmentTV,teacherAssignmentTV,courseAssignmentTV;
         ImageButton assignmentEditBtn, assignmentDeleteBtn;
 
 
@@ -77,6 +77,9 @@ public class AdapterForAssignmentList extends ArrayAdapter<AssignmentModel> impl
             holder.assignmentNameTV = (TextView) convertView.findViewById(R.id.assignmentNameTV);
             holder.submitDateTV = (TextView) convertView.findViewById(R.id.submitDateTV);
             holder.statusTV = (TextView) convertView.findViewById(R.id.statusTV);
+            holder.semesterAssignmentTV = (TextView) convertView.findViewById(R.id.semesterAssignmentTV);
+            holder.teacherAssignmentTV = (TextView) convertView.findViewById(R.id.teacherAssignmentTV);
+            holder.courseAssignmentTV = (TextView) convertView.findViewById(R.id.courseAssignmentTV);
             holder.assignmentEditBtn = (ImageButton) convertView.findViewById(R.id.assignmentEditBtn);
             holder.assignmentDeleteBtn = (ImageButton) convertView.findViewById(R.id.assignmentDeleteBtn);
             convertView.setTag(holder);
@@ -103,6 +106,10 @@ public class AdapterForAssignmentList extends ArrayAdapter<AssignmentModel> impl
 
         }
 
+        holder.semesterAssignmentTV.setText(new SemesterManager(context).getSemesterByID(assignmentArrayList.get(position).getSemesterID()).getSemesterTitle());
+        holder.teacherAssignmentTV.setText(new CourseManager(context).getCourseByID(assignmentArrayList.get(position).getCourseID()).getCourseTitle());
+        int teacherID=new CourseManager(context).getCourseByID(assignmentArrayList.get(position).getCourseID()).getCourseTeacherID();
+        holder.courseAssignmentTV.setText(new TeacherManager(context).getTeacherByID(teacherID).getTeacherName());
 
         holder.assignmentEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -119,6 +119,8 @@ public class AddSemesterActivity extends AppCompatActivity {
     // update data method
     private void updateSemesterInfo() {
         String semesterTitle = semesterTitleET.getText().toString();
+
+
         try {
             if (isStartDate == 1 && isEndDate == 2) {
                 fromDate = sdf.parse(startDateET.getText().toString());
@@ -139,12 +141,15 @@ public class AddSemesterActivity extends AppCompatActivity {
         if (fromDate.before(toDate) && toDate.after(fromDate))
 
         {
+            storeSatrtDate = startDateET.getText().toString();
+            storeEndDate = endDateET.getText().toString();
             if (semesterTitle.length() > 2 && semesterTitle.length() > 0 && storeEndDate.length() > 0 && storeSatrtDate.length() > 0) {
 
                 aSemester = new SemesterModel(semesterTitle, storeSatrtDate, storeEndDate);
                 boolean isInserted = semesterManager.editSemester(semesterID, aSemester);
                 if (isInserted)
                     CustomToast.SuccessToast(this, "Update successful");
+                btnUpdateSemester.setEnabled(false);
                 handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -184,6 +189,7 @@ public class AddSemesterActivity extends AppCompatActivity {
                 semesterTitleET.getText().clear();
                 startDateET.setText("");
                 endDateET.setText("");
+                btnAddSemester.setEnabled(false);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -260,8 +266,7 @@ public class AddSemesterActivity extends AppCompatActivity {
     // reset button method
     public void resetData(View view) {
         semesterTitleET.getText().clear();
-        startDateET.getText().clear();
-        endDateET.getText().clear();
+
     }
 
 

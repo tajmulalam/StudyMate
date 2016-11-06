@@ -61,7 +61,7 @@ public class AdapterForClassTestList extends ArrayAdapter<ClassTestModel> implem
 
     static class ViewHolder {
 
-        TextView classTestNameTV, classTestDateTV, classTestStatusTV;
+        TextView classTestNameTV, classTestDateTV, classTestStatusTV,semesterClassTestTV,courseClassTestTV,teacherClassTestTV;
         ImageButton classTestEditBtn, classTestDeleteBtn;
 
 
@@ -76,6 +76,9 @@ public class AdapterForClassTestList extends ArrayAdapter<ClassTestModel> implem
             holder.classTestNameTV = (TextView) convertView.findViewById(R.id.classTestNameTV);
             holder.classTestDateTV = (TextView) convertView.findViewById(R.id.classTestDateTV);
             holder.classTestStatusTV = (TextView) convertView.findViewById(R.id.classTestStatusTV);
+            holder.semesterClassTestTV = (TextView) convertView.findViewById(R.id.semesterClassTestTV);
+            holder.courseClassTestTV = (TextView) convertView.findViewById(R.id.courseClassTestTV);
+            holder.teacherClassTestTV = (TextView) convertView.findViewById(R.id.teacherClassTestTV);
             holder.classTestEditBtn = (ImageButton) convertView.findViewById(R.id.classTestEditBtn);
             holder.classTestDeleteBtn = (ImageButton) convertView.findViewById(R.id.classTestDeleteBtn);
             convertView.setTag(holder);
@@ -102,6 +105,11 @@ public class AdapterForClassTestList extends ArrayAdapter<ClassTestModel> implem
 
 
         }
+        holder.semesterClassTestTV.setText(new SemesterManager(context).getSemesterByID(classTestModelArrayList.get(position).getSemesterID()).getSemesterTitle());
+        holder.courseClassTestTV.setText(new CourseManager(context).getCourseByID(classTestModelArrayList.get(position).getCourseID()).getCourseTitle());
+        int teacherID=new CourseManager(context).getCourseByID(classTestModelArrayList.get(position).getCourseID()).getCourseTeacherID();
+        holder.teacherClassTestTV.setText(new TeacherManager(context).getTeacherByID(teacherID).getTeacherName());
+
 
 
         holder.classTestEditBtn.setOnClickListener(new View.OnClickListener() {
@@ -117,11 +125,12 @@ public class AdapterForClassTestList extends ArrayAdapter<ClassTestModel> implem
         holder.classTestDeleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                classTestID = classTestModelArrayList.get(position).getClassTestID();
                 MyAlert myAlert = new MyAlert();
                 myAlert.setWhichBtnClicked(whichBtnClicked);
                 myAlert.setTitle("Confirm Dialog");
-                myAlert.setMsg("This will deleted with its related date. Are You Confirmed To delete this");
-                myAlert.show(fragmentManager, "classTesttListDialog");
+                myAlert.setMsg(classTestModelArrayList.get(position).getClassTestTopic()+"\n \n"+"This will deleted with its related date. Are You Confirmed To delete this");
+                myAlert.show(fragmentManager, "classTestListDialog");
             }
         });
         return convertView;
@@ -132,10 +141,9 @@ public class AdapterForClassTestList extends ArrayAdapter<ClassTestModel> implem
     @Override
     public void okBtnClicked(boolean isOk) {
         if (isOk) {
-
             isDeleted = new ClassTestManager(context).deleteClassTestByID(classTestID);
             if (isDeleted) {
-                CustomToast.SuccessToast(context, "Assignment Delete Successful");
+                CustomToast.SuccessToast(context, "Class Test Delete Successful");
                 classTestModelArrayList = null;
                 classTestModelArrayList = new ClassTestManager(context).getAllClassTest();
                 notifyDataSetChanged();

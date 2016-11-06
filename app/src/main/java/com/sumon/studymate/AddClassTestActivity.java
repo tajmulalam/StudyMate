@@ -256,7 +256,7 @@ public class AddClassTestActivity extends AppCompatActivity {
                     CustomToast.SuccessToast(this, "Created successfully");
                 classTestDateET.getText().clear();
                 classTestTopicET.setText("");
-
+                btnAddClassTest.setEnabled(false);
                 Calendar cal = Calendar.getInstance();
                 if (status_Active == 1 && isInserted) {
                     cal.setTime(selectedDate);
@@ -305,12 +305,17 @@ public class AddClassTestActivity extends AppCompatActivity {
 
         try {
             if (isStartSelect == 1) {
-                selectedDate = sdf.parse(classTestDateET.getText().toString());
-                nowDate = sdf.parse(getDateTime());
-                storeSubmitDate = classTestDateET.getText().toString();
+                if (classTestDateET.getText().toString().length() > 0 && classTestDateET.getText().toString() != "") {
+                    selectedDate = sdf.parse(classTestDateET.getText().toString());
+                    nowDate = sdf.parse(getDateTime());
+                    storeSubmitDate = classTestDateET.getText().toString();
+                }
             } else {
-                selectedDate = sdf.parse(storeSubmitDate);
-                nowDate = sdf.parse(getDateTime());
+                if (classTestDateET.getText().toString().length() > 0 && classTestDateET.getText().toString() != "") {
+                    selectedDate = sdf.parse(storeSubmitDate);
+                    nowDate = sdf.parse(getDateTime());
+                } else
+                    CustomToast.FailToast(this, "Date Can't be Empty");
             }
 
         } catch (
@@ -321,7 +326,7 @@ public class AddClassTestActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        if (selectedDate.equals(nowDate) || selectedDate.after(nowDate) && !selectedDate.before(nowDate))
+        if ( selectedDate.equals(nowDate) || selectedDate.after(nowDate) && !selectedDate.before(nowDate))
 
         {
             if (classTestTitle.length() > 2 && storeSubmitDate.length() > 0) {
@@ -330,7 +335,7 @@ public class AddClassTestActivity extends AppCompatActivity {
                 boolean isInserted = classTestManager.editClassTest(classTestID, aClassTest);
                 if (isInserted) {
                     CustomToast.SuccessToast(this, "Update successful");
-
+                    btnUpdateClassTest.setEnabled(false);
                     Calendar cal = Calendar.getInstance();
                     if (status_Active == 1) {
                         cal.setTime(selectedDate);
@@ -347,6 +352,7 @@ public class AddClassTestActivity extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+
                         startActivity(new Intent(AddClassTestActivity.this, ClassTestListActivity.class));
                         finish();
                     }
@@ -400,9 +406,8 @@ public class AddClassTestActivity extends AppCompatActivity {
 
     public void resetDataClassTest(View view) {
 
-        classTestDateET.getText().clear();
         classTestTopicET.getText().clear();
-        classTestremindCheckBox.setChecked(false);
+
     }
 
 

@@ -3,8 +3,8 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:cardView="http://schemas.android.com/tools"
     android:id="@+id/assignmentCardView"
-    android:layout_width="@dimen/three_hundred"
-    android:layout_height="@dimen/two_hundred"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:clickable="false"
     android:layout_margin="@dimen/ten"
     android:foreground="?android:attr/selectableItemBackground"
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/ten"
-        android:weightSum="6">
+        android:weightSum="12">
 
         <TextView
             android:paddingTop="@dimen/ten"
@@ -36,6 +36,32 @@
             android:gravity="left"
             android:paddingTop="@dimen/ten"
             android:text="@string/submitDate" />
+
+
+        <TextView
+            android:id="@+id/semesterAssignmentTV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="left"
+            android:paddingTop="@dimen/ten"
+            android:text="@string/semesterTitle" />
+        <TextView
+            android:id="@+id/courseAssignmentTV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="left"
+            android:paddingTop="@dimen/ten"
+            android:text="@string/courseTitle" />
+        <TextView
+            android:id="@+id/teacherAssignmentTV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="left"
+            android:paddingTop="@dimen/ten"
+            android:text="@string/teacherName" />
 
         <TextView
             android:id="@+id/statusTV"

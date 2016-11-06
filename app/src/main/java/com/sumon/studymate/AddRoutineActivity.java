@@ -106,38 +106,44 @@ public class AddRoutineActivity extends AppCompatActivity {
         String period = periodET.getText().toString();
 
         SimpleDateFormat format = new SimpleDateFormat("HH:mm"); // 12 hour format
-        try {
-            startDate = format.parse(startTime);
-            endDate = format.parse(endTime);
+      if (startTime.length()>0 && endTime.length()>0){
+          try {
+              if (startTime.length() > 0 && endTime.length() > 0) {
+                  startDate = format.parse(startTime);
+                  endDate = format.parse(endTime);
+              } else
+                  CustomToast.FailToast(this, "Time Can't be Empty");
+          } catch (ParseException e) {
+              e.printStackTrace();
+          }
 
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+          if (startDate.before(endDate)) {
+              if (day.length() > 0 && startTime.length() > 0 && endTime.length() > 0 && period.length() > 0 && semesterID != 0 || semesterID != 0 && courseID != -1 && teacherID != -1) {
 
-        if (startDate.before(endDate)) {
-            if (day.length() > 0 && startTime.length() > 0 && endTime.length() > 0 && period.length() > 0 && semesterID != 0 || semesterID != 0 && courseID != -1 && teacherID != -1) {
+                  aRoutine = new RoutineModel(day, startTime, endTime, period, semesterID, courseID, teacherID);
 
-                aRoutine = new RoutineModel(day, startTime, endTime, period, semesterID, courseID, teacherID);
+                  boolean isInserted = routineManager.addNewRoutine(aRoutine);
+                  if (isInserted) {
+                      CustomToast.SuccessToast(this, "Routine inserted");
 
-                boolean isInserted = routineManager.addNewRoutine(aRoutine);
-                if (isInserted) {
-                    CustomToast.SuccessToast(this, "Routine inserted");
+                      new Handler().postDelayed(new Runnable() {
+                          @Override
+                          public void run() {
+                              Intent routinListIntent = new Intent(AddRoutineActivity.this, RoutineInfoListActivity.class);
+                              routinListIntent.putExtra("semesterID", semesterID);
+                              startActivity(routinListIntent);
+                              finish();
+                          }
+                      }, 700);
+                  } else
+                      CustomToast.FailToast(this, "Internal Error");
+              } else
+                  CustomToast.FailToast(this, "Please Fill Properly");
+          } else
+              CustomToast.FailToast(this, "Start Time must be before End Time");
+      }else
+          CustomToast.FailToast(this, "Time Can't be Empty");
 
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent routinListIntent = new Intent(AddRoutineActivity.this, RoutineInfoListActivity.class);
-                            routinListIntent.putExtra("semesterID", semesterID);
-                            startActivity(routinListIntent);
-                            finish();
-                        }
-                    }, 700);
-                } else
-                    CustomToast.FailToast(this, "Internal Error");
-            } else
-                CustomToast.FailToast(this, "Please Fill Properly");
-        } else
-            CustomToast.FailToast(this, "Start Time must be before End Time");
 
     }
 

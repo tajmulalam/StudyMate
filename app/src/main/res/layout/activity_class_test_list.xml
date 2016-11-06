@@ -29,7 +29,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="Search Assignment..."
+                android:hint="Search Class Test..."
                 android:inputType="textVisiblePassword"
                 android:padding="@dimen/twinty" />
         </android.support.v7.widget.CardView>

@@ -249,6 +249,7 @@ public class AddAssignmentActivity extends AppCompatActivity {
                     CustomToast.SuccessToast(this, "created successfully");
                 submitDateET.getText().clear();
                 assignmentTopicET.setText("");
+                btnAddAssignment.setEnabled(false);
 
                 Calendar cal = Calendar.getInstance();
                 if (status_Active == 1) {
@@ -323,7 +324,7 @@ public class AddAssignmentActivity extends AppCompatActivity {
                 boolean isInserted = assignmentManager.editAssignment(assignmentID, aAssignment);
                 if (isInserted) {
                     CustomToast.SuccessToast(this, "Update successful");
-
+                    btnUpdateAssignment.setEnabled(false);
                     Calendar cal = Calendar.getInstance();
                     if (status_Active == 1) {
                         cal.setTime(selectedDate);
@@ -356,9 +357,7 @@ public class AddAssignmentActivity extends AppCompatActivity {
 
     // reset button method
     public void resetData(View view) {
-        submitDateET.getText().clear();
         assignmentTopicET.getText().clear();
-        remindCheckBox.setChecked(false);
     }
 
     private String getDateTime() {
