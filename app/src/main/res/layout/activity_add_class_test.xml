@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.sumon.studymate.AddClassTestActivity">
+    tools:context="com.sumon.studymate.activity.AddClassTestActivity">
 
     <include
         layout="@layout/layout_classtest_helper"

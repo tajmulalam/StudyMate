@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/ten"
-    tools:context="com.sumon.studymate.AddCoursesActivity">
+    tools:context="com.sumon.studymate.activity.AddCoursesActivity">
 
     <LinearLayout
         android:id="@+id/activity_add_semester"
@@ -129,7 +129,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/ic_bg"
-                android:onClick="back"
                 android:text="Add Course" />
             <Button
                 android:visibility="gone"
@@ -138,7 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/ic_bg"
-                android:onClick="back"
+
                 android:text="Update Course" />
         </LinearLayout>
     </LinearLayout>

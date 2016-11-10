@@ -4,14 +4,15 @@
     android:id="@+id/activity_launcher"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_launcher"
     android:orientation="vertical"
-    android:padding="@dimen/five"
-    tools:context="com.sumon.studymate.LauncherActivity"
-    android:background="@color/bg_launcher">
+    tools:context="com.sumon.studymate.activity.LauncherActivity">
 
     <include
         layout="@layout/layout_dashboard_helper"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/five"
+        android:layout_marginTop="@dimen/five" />
 
 </LinearLayout>

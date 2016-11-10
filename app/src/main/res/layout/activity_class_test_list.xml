@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg_launcher"
     android:fitsSystemWindows="true"
-    tools:context="com.sumon.studymate.ClassTestListActivity">
+    tools:context="com.sumon.studymate.activity.ClassTestListActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

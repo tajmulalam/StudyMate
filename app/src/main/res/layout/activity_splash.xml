@@ -7,7 +7,7 @@
     android:background="@color/colorPrimary"
     android:orientation="vertical"
     android:weightSum="8"
-    tools:context="com.sumon.studymate.SplashActivity">
+    tools:context="com.sumon.studymate.activity.SplashActivity">
 
     <View
         android:layout_width="match_parent"

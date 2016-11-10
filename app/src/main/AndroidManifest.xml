@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashActivity"
+            android:name=".activity.SplashActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,76 +21,76 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddSemesterActivity"
-            android:parentActivityName=".SemesterListActivity"
+            android:name=".activity.AddSemesterActivity"
+            android:parentActivityName=".activity.SemesterListActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".AddCoursesActivity"
-            android:parentActivityName=".CourseListActivity"
+            android:name=".activity.AddCoursesActivity"
+            android:parentActivityName=".activity.CourseListActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".SemesterListActivity"
-            android:parentActivityName=".LauncherActivity" />
+            android:name=".activity.SemesterListActivity"
+            android:parentActivityName=".activity.LauncherActivity" />
         <activity
-            android:name=".TeacherListActivity"
-            android:parentActivityName=".LauncherActivity"
+            android:name=".activity.TeacherListActivity"
+            android:parentActivityName=".activity.LauncherActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".AddTeacherActivity"
-            android:parentActivityName=".TeacherListActivity"
+            android:name=".activity.AddTeacherActivity"
+            android:parentActivityName=".activity.TeacherListActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".CourseListActivity"
-            android:parentActivityName=".LauncherActivity"
+            android:name=".activity.CourseListActivity"
+            android:parentActivityName=".activity.LauncherActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".AddAssignmentActivity"
-            android:parentActivityName=".AssignmentListActivity"
+            android:name=".activity.AddAssignmentActivity"
+            android:parentActivityName=".activity.AssignmentListActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".AssignmentListActivity"
-            android:parentActivityName=".LauncherActivity"
+            android:name=".activity.AssignmentListActivity"
+            android:parentActivityName=".activity.LauncherActivity"
             android:windowSoftInputMode="stateHidden" />
 
         <receiver
-            android:name=".AlarmReceiverForClassTest"
+            android:name=".receiver.AlarmReceiverForClassTest"
             android:process=":remote" />
         <receiver
-            android:name=".AlarmReceiverForAssignments"
+            android:name=".receiver.AlarmReceiverForAssignments"
             android:process=":remote" />
 
         <service
-            android:name=".MyAlarmServiceForClassTest"
+            android:name=".service.MyAlarmServiceForClassTest"
             android:enabled="true" />
         <service
-            android:name=".MyAlarmServiceForAssignments"
+            android:name=".service.MyAlarmServiceForAssignments"
             android:enabled="true" />
 
         <activity
-            android:name=".AddClassTestActivity"
-            android:parentActivityName=".ClassTestListActivity"
+            android:name=".activity.AddClassTestActivity"
+            android:parentActivityName=".activity.ClassTestListActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".ClassTestListActivity"
-            android:parentActivityName=".LauncherActivity"
+            android:name=".activity.ClassTestListActivity"
+            android:parentActivityName=".activity.LauncherActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".ClassTestNotificationActivity"
-            android:parentActivityName=".LauncherActivity" />
+            android:name=".activity.ClassTestNotificationActivity"
+            android:parentActivityName=".activity.LauncherActivity" />
         <activity
-            android:name=".AssignmentsNotificationActivity"
-            android:parentActivityName=".LauncherActivity" />
+            android:name=".activity.AssignmentsNotificationActivity"
+            android:parentActivityName=".activity.LauncherActivity" />
         <activity
-            android:name=".RoutineWizerdActivity"
-            android:parentActivityName=".LauncherActivity" />
+            android:name=".activity.RoutineWizerdActivity"
+            android:parentActivityName=".activity.LauncherActivity" />
         <activity
-            android:name=".RoutineInfoListActivity"
-            android:parentActivityName=".LauncherActivity" />
+            android:name=".activity.RoutineInfoListActivity"
+            android:parentActivityName=".activity.LauncherActivity" />
         <activity
-            android:name=".AddRoutineActivity"
-            android:parentActivityName=".RoutineInfoListActivity"
+            android:name=".activity.AddRoutineActivity"
+            android:parentActivityName=".activity.RoutineInfoListActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".LauncherActivity"></activity>
+        <activity android:name=".activity.LauncherActivity"></activity>
     </application>
 
 </manifest>

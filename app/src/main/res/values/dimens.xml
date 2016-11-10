@@ -23,4 +23,6 @@
     <dimen name="thirtyFive">35dp</dimen>
     <dimen name="thirtySp">30sp</dimen>
     <dimen name="eighty">80dp</dimen>
+    <dimen name="fourty">40dp</dimen>
+    <dimen name="fourtyFive">45dp</dimen>
 </resources>

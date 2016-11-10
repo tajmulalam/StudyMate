@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/teacherNameET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_bg"
+            android:hint="@string/teacherName"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/teacherDesignationET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_bg"
+            android:hint="@string/designation"
+            android:inputType="textAutoComplete" />
+
+        <EditText
+            android:id="@+id/teacherMobileET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_bg"
+            android:hint="@string/teacherMobile"
+            android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/teacherEmailET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_bg"
+            android:hint="@string/teacherEmail"
+            android:inputType="textEmailAddress" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_bg"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Choose Semester "
+                android:textSize="@dimen/eighteensp" />
+
+            <Spinner
+                android:id="@+id/semesterListSpinnerForTeacher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/resetBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/five"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ic_bg"
+                android:text="Reset" />
+
+            <Button
+                android:id="@+id/btnAddTeacher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/five"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ic_bg"
+                android:text="Add Teacher" />
+
+            <Button
+                android:id="@+id/btnUpdateTeacher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ic_bg"
+                android:onClick="next"
+                android:text="Update"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
