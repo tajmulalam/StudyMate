@@ -98,7 +98,10 @@ public class AddRoutineActivity extends AppCompatActivity {
         allCourse = courseManager.getAllCoursesBySemesterID(semesterID);
         if (allCourse.size()<1){
             CustomToast.FailToast(this,"No Course Available ! Create one First to create Routine");
+            btnAddRoutine.setEnabled(false);
 
+        }else{
+            btnAddRoutine.setEnabled(true);
         }
         courseSpinnerAdapter = new AdapterForCourseSpinner(this, allCourse);
         courseListSpinnerRoutine.setAdapter(courseSpinnerAdapter);

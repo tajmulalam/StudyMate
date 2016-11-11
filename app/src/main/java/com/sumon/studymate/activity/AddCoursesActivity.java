@@ -109,7 +109,6 @@ public class AddCoursesActivity extends AppCompatActivity {
             setTitle("Add New Course");
             editCourseBtn.setVisibility(View.GONE);
             addNewCourseBtn.setVisibility(View.VISIBLE);
-
             adapterForTeacherSpinner = new AdapterForTeacherSpinner(this, teacherListActivityArrayList);
             teacherListSpinner.setAdapter(adapterForTeacherSpinner);
 
@@ -122,12 +121,30 @@ public class AddCoursesActivity extends AppCompatActivity {
         semesterListSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                semesterID = semesterModelArrayList.get(position).getSemesterID();
-                teacherListActivityArrayList = teacherManager.getAllTeacherBySemesterID(semesterID);
-                adapterForTeacherSpinner = new AdapterForTeacherSpinner(AddCoursesActivity.this, teacherListActivityArrayList);
-                teacherListSpinner.setAdapter(adapterForTeacherSpinner);
-                String semester = semesterModelArrayList.get(position).getSemesterTitle();
-                Log.d("ddsfas", "semester" + semester);
+
+                if (semesterModelArrayList.size() > 0) {
+                    addNewCourseBtn.setEnabled(true);
+                    semesterID = semesterModelArrayList.get(position).getSemesterID();
+                    teacherListActivityArrayList = teacherManager.getAllTeacherBySemesterID(semesterID);
+                    if (teacherListActivityArrayList.size() > 0) {
+                        addNewCourseBtn.setEnabled(true);
+                        if (courseId != -1 && courseId != 0)
+                            editCourseBtn.setEnabled(true);
+                        adapterForTeacherSpinner = new AdapterForTeacherSpinner(AddCoursesActivity.this, teacherListActivityArrayList);
+                        teacherListSpinner.setAdapter(adapterForTeacherSpinner);
+                    } else {
+                        if (courseId != -1 && courseId != 0)
+                            editCourseBtn.setEnabled(false);
+                        addNewCourseBtn.setEnabled(false);
+                        CustomToast.FailToast(AddCoursesActivity.this, "No Teacher Available on this Semester");
+                        adapterForTeacherSpinner = new AdapterForTeacherSpinner(AddCoursesActivity.this, teacherListActivityArrayList);
+                        teacherListSpinner.setAdapter(adapterForTeacherSpinner);
+                    }
+                } else {
+                    addNewCourseBtn.setEnabled(false);
+
+                    CustomToast.FailToast(AddCoursesActivity.this, "No Semester Available");
+                }
             }
 
             @Override
@@ -141,6 +158,7 @@ public class AddCoursesActivity extends AppCompatActivity {
                 teacherID = teacherListActivityArrayList.get(position).getTeacherID();
                 String teacher = teacherListActivityArrayList.get(position).getTeacherName();
                 Log.d("teacher", "teacher" + teacher);
+
             }
 
             @Override

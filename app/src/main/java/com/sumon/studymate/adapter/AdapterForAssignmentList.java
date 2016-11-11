@@ -105,7 +105,7 @@ public class AdapterForAssignmentList extends ArrayAdapter<AssignmentModel> impl
             e.printStackTrace();
         }
         holder.submitDateTV.setText("Deadline: " + assignmentArrayList.get(position).getSubmitDate());
-        if (assignmentArrayList.get(position).getAssignmentStatus() == 1 || assignmentArrayList.get(position).getAssignmentStatus() == 0&&assignmentArrayList.get(position).getAssignmentStatus() != 3) {
+        if (assignmentArrayList.get(position).getAssignmentStatus() == 1 || assignmentArrayList.get(position).getAssignmentStatus() == -1&&assignmentArrayList.get(position).getAssignmentStatus() != 3) {
             holder.statusTV.setText("Pending");
             holder.statusTV.setTextColor(Color.RED);
         }

@@ -3,6 +3,7 @@ package com.sumon.studymate.adapter;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,11 @@ import com.sumon.studymate.activity.SemesterListActivity;
 import com.sumon.studymate.manager.SemesterManager;
 import com.sumon.studymate.model.SemesterModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Md Tajmul Alam Sumon on 10/28/2016.
@@ -34,6 +39,8 @@ public class AdapterForSemesterList extends ArrayAdapter<SemesterModel> implemen
     private int semesterListID;
     private FragmentManager fragmentManager;
     private MyAlert.WhichBtnClicked whichBtnClicked;
+    private SimpleDateFormat sdf;
+    private Date todayDate, semesterEndDate;
 
     public void setFragmentManager(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
@@ -46,6 +53,7 @@ public class AdapterForSemesterList extends ArrayAdapter<SemesterModel> implemen
         inflter = (LayoutInflater.from(context));
         mySharedPrefManager = new MySharedPrefManager(context);
         this.whichBtnClicked = this;
+        sdf = new SimpleDateFormat("dd-MM-yyyy");
 
     }
 
@@ -63,7 +71,7 @@ public class AdapterForSemesterList extends ArrayAdapter<SemesterModel> implemen
 
     static class ViewHolder {
 
-        TextView semesterNameTV, semesterStartDateTV, semesterEndDateTV;
+        TextView semesterNameTV, semesterStartDateTV, semesterEndDateTV,semesterStatusTV;
         ImageButton semesterEditBtn, semesterDeleteBtn;
 
 
@@ -78,6 +86,7 @@ public class AdapterForSemesterList extends ArrayAdapter<SemesterModel> implemen
             holder.semesterNameTV = (TextView) convertView.findViewById(R.id.semesterNameTV);
             holder.semesterStartDateTV = (TextView) convertView.findViewById(R.id.semesterStartDateTV);
             holder.semesterEndDateTV = (TextView) convertView.findViewById(R.id.semesterEndDateTV);
+            holder.semesterStatusTV = (TextView) convertView.findViewById(R.id.semesterStatusTV);
             holder.semesterEditBtn = (ImageButton) convertView.findViewById(R.id.semesterEditBtn);
             holder.semesterDeleteBtn = (ImageButton) convertView.findViewById(R.id.semesterDeleteBtn);
             convertView.setTag(holder);
@@ -87,6 +96,32 @@ public class AdapterForSemesterList extends ArrayAdapter<SemesterModel> implemen
         holder.semesterNameTV.setText(semesterList.get(position).getSemesterTitle());
         holder.semesterStartDateTV.setText("Start: " + semesterList.get(position).getSemester_start_date());
         holder.semesterEndDateTV.setText("End: " + semesterList.get(position).getSemester_end_date());
+
+        try {
+            todayDate = sdf.parse(getDateTime());
+            semesterEndDate = sdf.parse(semesterList.get(position).getSemester_end_date());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (todayDate.equals(semesterEndDate)){
+            holder.semesterStatusTV.setText("Status: Will Complete Today");
+            holder.semesterStatusTV.setTextColor(context.getResources().getColor(R.color.mdtp_accent_color));
+
+        }
+        if (semesterEndDate.before(todayDate)){
+            holder.semesterStatusTV.setText("Status: Completed");
+            holder.semesterStatusTV.setTextColor(Color.RED);
+
+
+        }
+        if (semesterEndDate.after(todayDate)){
+            holder.semesterStatusTV.setText("Status: Running");
+            holder.semesterStatusTV.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+
+
+
+        }
 
         holder.semesterEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,8 +156,8 @@ public class AdapterForSemesterList extends ArrayAdapter<SemesterModel> implemen
             isDeleted = new SemesterManager(context).deleteSemesterByID(semesterListID);
             if (isDeleted) {
                 CustomToast.SuccessToast(context, "Semester Delete Successful");
-                semesterList=null;
-                semesterList=new SemesterManager(context).getAllSemester();
+                semesterList = null;
+                semesterList = new SemesterManager(context).getAllSemester();
                 notifyDataSetChanged();
             } else
                 CustomToast.FailToast(context, "failed");
@@ -133,5 +168,14 @@ public class AdapterForSemesterList extends ArrayAdapter<SemesterModel> implemen
     public void cancelkBtnClicked(boolean isCancel) {
 
     }
+
+
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "dd-MM-yyyy", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
 }
 

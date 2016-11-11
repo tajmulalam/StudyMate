@@ -105,7 +105,7 @@ public class AddClassTestActivity extends AppCompatActivity {
         });
         classTestManager = new ClassTestManager(this);
         classTestID = getIntent().getIntExtra("classTestID", -1);
-        if (classTestID != -1) {
+        if (classTestID != -1 && classTestID != 0) {
             setTitle("Update Class Test");
             btnAddClassTest.setVisibility(View.GONE);
             btnUpdateClassTest.setVisibility(View.VISIBLE);
@@ -175,8 +175,22 @@ public class AddClassTestActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 semesterID = semesterModelArrayList.get(position).getSemesterID();
                 courseModelArrayList = courseManager.getAllCoursesBySemesterID(semesterID);
-                forCourseSpinnerAdapter = new AdapterForCourseSpinner(AddClassTestActivity.this, courseModelArrayList);
-                courseListSpinnerClassTest.setAdapter(forCourseSpinnerAdapter);
+                if (courseModelArrayList.size() > 0) {
+                    btnAddClassTest.setEnabled(true);
+                    if (classTestID != -1 && classTestID != 0) {
+                        btnUpdateClassTest.setEnabled(true);
+                    }
+                    forCourseSpinnerAdapter = new AdapterForCourseSpinner(AddClassTestActivity.this, courseModelArrayList);
+                    courseListSpinnerClassTest.setAdapter(forCourseSpinnerAdapter);
+                } else {
+                    btnAddClassTest.setEnabled(false);
+                    if (classTestID != -1 && classTestID != 0) {
+                        btnUpdateClassTest.setEnabled(false);
+                    }
+                    CustomToast.FailToast(AddClassTestActivity.this, "No Course Available on this semester");
+                    forCourseSpinnerAdapter = new AdapterForCourseSpinner(AddClassTestActivity.this, courseModelArrayList);
+                    courseListSpinnerClassTest.setAdapter(forCourseSpinnerAdapter);
+                }
 
             }
 
@@ -234,7 +248,7 @@ public class AddClassTestActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                if (classTestDateET.getText().length() > 0) {
+                if (classTestDateET.getText().length() > 0 && courseModelArrayList.size()>0) {
                     storeSubmitDate = classTestDateET.getText().toString();
                     btnAddClassTest.setEnabled(true);
                 } else
@@ -339,7 +353,7 @@ public class AddClassTestActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        if ( selectedDate.equals(nowDate) || selectedDate.after(nowDate) && !selectedDate.before(nowDate))
+        if (selectedDate.equals(nowDate) || selectedDate.after(nowDate) && !selectedDate.before(nowDate))
 
         {
             if (classTestTitle.length() > 2 && storeSubmitDate.length() > 0) {

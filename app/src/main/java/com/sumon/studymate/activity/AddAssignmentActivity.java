@@ -173,8 +173,25 @@ public class AddAssignmentActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 semesterID = semesterModelArrayList.get(position).getSemesterID();
                 courseModelArrayList = courseManager.getAllCoursesBySemesterID(semesterID);
-                forCourseSpinnerAdapter = new AdapterForCourseSpinner(AddAssignmentActivity.this, courseModelArrayList);
-                courseListSpinnerAssignment.setAdapter(forCourseSpinnerAdapter);
+                if (courseModelArrayList.size() > 0) {
+
+                    btnAddAssignment.setEnabled(true);
+                    if (assignmentID != -1 && assignmentID != 0) {
+                        btnUpdateAssignment.setEnabled(true);
+                    }
+                    forCourseSpinnerAdapter = new AdapterForCourseSpinner(AddAssignmentActivity.this, courseModelArrayList);
+                    courseListSpinnerAssignment.setAdapter(forCourseSpinnerAdapter);
+                } else {
+                    btnAddAssignment.setEnabled(false);
+                    if (assignmentID != -1 && assignmentID != 0) {
+                        btnUpdateAssignment.setEnabled(false);
+                    }
+                    CustomToast.FailToast(AddAssignmentActivity.this, "No Course Available on this semester");
+
+                    forCourseSpinnerAdapter = new AdapterForCourseSpinner(AddAssignmentActivity.this, courseModelArrayList);
+                    courseListSpinnerAssignment.setAdapter(forCourseSpinnerAdapter);
+                }
+
 
             }
 
@@ -232,9 +249,8 @@ public class AddAssignmentActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                if (submitDateET.getText().length() > 0) {
+                if (submitDateET.getText().length() > 0 ) {
                     storeSubmitDate = submitDateET.getText().toString();
-                    btnAddAssignment.setEnabled(true);
 
                 }
                 isStartSelect = 1;

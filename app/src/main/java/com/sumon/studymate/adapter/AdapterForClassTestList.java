@@ -105,7 +105,7 @@ public class AdapterForClassTestList extends ArrayAdapter<ClassTestModel> implem
             e.printStackTrace();
         }
         holder.classTestDateTV.setText("Deadline: " + classTestModelArrayList.get(position).getTestDate());
-        if (classTestModelArrayList.get(position).getClassTestStatus() == 1 || classTestModelArrayList.get(position).getClassTestStatus() == 0) {
+        if (classTestModelArrayList.get(position).getClassTestStatus() == 1 || classTestModelArrayList.get(position).getClassTestStatus() == -1) {
             holder.classTestStatusTV.setText("Pending");
             holder.classTestStatusTV.setTextColor(Color.RED);
         }
