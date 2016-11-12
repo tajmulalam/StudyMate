@@ -5,6 +5,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -56,6 +58,32 @@ public class RoutineInfoListActivity extends AppCompatActivity implements MyAler
                 goToAddRoutine();
             }
         });
+        routineInfoListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
+                if (firstVisibleItem + visibleItemCount >= totalItemCount) {
+                    // End has been reached
+                    fabNewRoutine.startAnimation(AnimationUtils.loadAnimation(RoutineInfoListActivity.this,
+                            android.R.anim.fade_out));
+                    fabNewRoutine.setVisibility(View.GONE);
+                } else {
+                    fabNewRoutine.startAnimation(AnimationUtils.loadAnimation(RoutineInfoListActivity.this,
+                            android.R.anim.fade_in));
+                    fabNewRoutine.setVisibility(View.VISIBLE);
+                }
+                if (visibleItemCount == totalItemCount)
+                    fabNewRoutine.setVisibility(View.VISIBLE);
+            }
+        });
+
+
         routineInfoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

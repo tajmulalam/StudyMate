@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -25,6 +27,7 @@ public class TeacherListActivity extends AppCompatActivity {
     private ListView teacherListView;
     private AdapterForTeacherList adapterForTeacherList;
     private EditText inputSearchForTeacherET;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +44,37 @@ public class TeacherListActivity extends AppCompatActivity {
 
         teacherListView.setAdapter(adapterForTeacherList);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAddTeacher);
+        fab = (FloatingActionButton) findViewById(R.id.fabAddTeacher);
 
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToAddTeacher();
+            }
+        });
+        teacherListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
+                if (firstVisibleItem + visibleItemCount >= totalItemCount) {
+                    // End has been reached
+                    fab.startAnimation(AnimationUtils.loadAnimation(TeacherListActivity.this,
+                            android.R.anim.fade_out));
+                    fab.setVisibility(View.GONE);
+                } else {
+                    fab.startAnimation(AnimationUtils.loadAnimation(TeacherListActivity.this,
+                            android.R.anim.fade_in));
+                    fab.setVisibility(View.VISIBLE);
+                }
+                if (visibleItemCount == totalItemCount)
+                    fab.setVisibility(View.VISIBLE);
             }
         });
         inputSearchForTeacherET.addTextChangedListener(new TextWatcher() {

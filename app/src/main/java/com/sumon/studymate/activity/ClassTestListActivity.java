@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -25,6 +27,7 @@ public class ClassTestListActivity extends AppCompatActivity {
     private ArrayList<ClassTestModel> classTestModelArrayList;
     private AdapterForClassTestList adapterForClassTestList;
     private EditText inputSearchClassTestET;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +36,9 @@ public class ClassTestListActivity extends AppCompatActivity {
         setTitle("Class Test List");
 
         classTestListView = (ListView) findViewById(R.id.classTestListView);
-        inputSearchClassTestET= (EditText) findViewById(R.id.inputSearchClassTestET);
+        inputSearchClassTestET = (EditText) findViewById(R.id.inputSearchClassTestET);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabNewClassTest);
+        fab = (FloatingActionButton) findViewById(R.id.fabNewClassTest);
 
         classTestManager = new ClassTestManager(this);
         fillAdapter();
@@ -43,6 +46,31 @@ public class ClassTestListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 goToAddAssignment();
+            }
+        });
+
+        classTestListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
+                if (firstVisibleItem + visibleItemCount >= totalItemCount) {
+                    // End has been reached
+                    fab.startAnimation(AnimationUtils.loadAnimation(ClassTestListActivity.this,
+                            android.R.anim.fade_out));
+                    fab.setVisibility(View.GONE);
+                } else {
+                    fab.startAnimation(AnimationUtils.loadAnimation(ClassTestListActivity.this,
+                            android.R.anim.fade_in));
+                    fab.setVisibility(View.VISIBLE);
+                }
+                if (visibleItemCount == totalItemCount)
+                    fab.setVisibility(View.VISIBLE);
             }
         });
         inputSearchClassTestET.addTextChangedListener(new TextWatcher() {
@@ -77,7 +105,7 @@ public class ClassTestListActivity extends AppCompatActivity {
     }
 
     public void fillAdapter() {
-        classTestModelArrayList=new ArrayList<>();
+        classTestModelArrayList = new ArrayList<>();
         classTestModelArrayList = classTestManager.getAllClassTest();
 
         adapterForClassTestList = new AdapterForClassTestList(this, classTestModelArrayList);

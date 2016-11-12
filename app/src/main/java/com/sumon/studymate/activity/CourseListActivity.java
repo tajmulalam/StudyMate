@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -24,6 +26,7 @@ public class CourseListActivity extends AppCompatActivity {
     private CourseManager courseManager;
     private ArrayList<CourseModel> allCourses;
     private EditText inputSearchET;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +37,38 @@ public class CourseListActivity extends AppCompatActivity {
         inputSearchET = (EditText) findViewById(R.id.inputSearchET);
 
         fillAdapter();
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAddCourse);
+         fab = (FloatingActionButton) findViewById(R.id.fabAddCourse);
 
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToAddCourse();
+            }
+        });
+
+        coursesListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
+                if (firstVisibleItem + visibleItemCount >= totalItemCount) {
+                    // End has been reached
+                    fab.startAnimation(AnimationUtils.loadAnimation(CourseListActivity.this,
+                            android.R.anim.fade_out));
+                    fab.setVisibility(View.GONE);
+                } else {
+                    fab.startAnimation(AnimationUtils.loadAnimation(CourseListActivity.this,
+                            android.R.anim.fade_in));
+                    fab.setVisibility(View.VISIBLE);
+                }
+                if (visibleItemCount == totalItemCount)
+                    fab.setVisibility(View.VISIBLE);
             }
         });
         inputSearchET.addTextChangedListener(new TextWatcher() {
