@@ -5,6 +5,8 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
+import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -15,6 +17,7 @@ import android.support.v7.app.NotificationCompat;
 
 import com.sumon.studymate.activity.ClassTestNotificationActivity;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -27,18 +30,37 @@ public class MyAlarmServiceForClassTest extends Service {
 
     private NotificationManager mManager;
 
-
+    private MediaPlayer player;
+    private AssetFileDescriptor descriptor;
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        final Ringtone ringtone = RingtoneManager.getRingtone(this.getApplicationContext(), uri);
-        ringtone.play();
+        try {
+            descriptor = getAssets().openFd("that-look.mp3");
+            player = new MediaPlayer();
+
+            long start = descriptor.getStartOffset();
+            long end = descriptor.getLength();
+
+            player.setDataSource(this.descriptor.getFileDescriptor(), start, end);
+            player.prepare();
+
+            player.setVolume(1.0f, 1.0f);
+            player.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (ringtone.isPlaying())
-                    ringtone.stop();
+                if (player != null) {
+                    if (player.isPlaying()) {
+                        player.stop();
+                    }
+
+                    player.release();
+                    player = null;
+                }
             }
         }, 10000);
 
