@@ -23,6 +23,12 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         ivLogo = (ImageView) findViewById(R.id.ivLogo);
         qouteTV = (TextView) findViewById(R.id.qouteTV);
+        initSplash();
+
+
+    }
+
+    private void initSplash() {
         qouteTV.setVisibility(View.GONE);
 
         CustomAnimation.zoomIn(ivLogo);
@@ -44,8 +50,6 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             }
         }, 3000);
-
-
     }
 
     public void fullScreenCall() {
