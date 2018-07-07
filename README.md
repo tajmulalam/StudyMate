@@ -1,4 +1,4 @@
-# StudyMate
+# mmMate
 Versity Project
 
 
